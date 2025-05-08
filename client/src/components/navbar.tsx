@@ -47,6 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const additionalNavItems = [
     { id: "music", label: "Music Lab" },
     { id: "featured-anthems", label: "Featured Anthems" },
+    { id: "genre-recommender", label: "Genre Recommender" },
     { id: "campaigns", label: "Campaigns" },
     { id: "investors", label: "Investors" },
     { id: "contact", label: "Contact" },

@@ -11,6 +11,7 @@ import VocalVerseSection from "@/components/vocal-verse-section";
 import BeatDropSection from "@/components/beat-drop-section";
 import TwinSyncSection from "@/components/twin-sync-section";
 import FeaturedAnthemsSection from "@/components/featured-anthems-section";
+import GenreRecommenderSection from "@/components/genre-recommender-section";
 import Footer from "@/components/footer";
 import { scrollToSection } from "@/lib/utils";
 
@@ -44,6 +45,7 @@ const Home: React.FC = () => {
         <TwinSyncSection onNavigate={handleNavigation} />
         <MusicLabSection />
         <FeaturedAnthemsSection />
+        <GenreRecommenderSection onNavigate={handleNavigation} />
         <CampaignSection onNavigate={handleNavigation} />
         <InvestorSection onNavigate={handleNavigation} />
         <ContactSection />
