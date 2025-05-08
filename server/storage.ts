@@ -3,6 +3,8 @@ import {
   contactSubmissions, type ContactSubmission, type InsertContactSubmission,
   newsletterSignups, type NewsletterSignup, type InsertNewsletterSignup
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -20,60 +22,39 @@ export interface IStorage {
   getNewsletterSignupByEmail(email: string): Promise<NewsletterSignup | undefined>;
 }
 
-// In-memory storage implementation
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private contacts: Map<number, ContactSubmission>;
-  private newsletters: Map<number, NewsletterSignup>;
-  
-  private userCurrentId: number;
-  private contactCurrentId: number;
-  private newsletterCurrentId: number;
-
-  constructor() {
-    this.users = new Map();
-    this.contacts = new Map();
-    this.newsletters = new Map();
-    
-    this.userCurrentId = 1;
-    this.contactCurrentId = 1;
-    this.newsletterCurrentId = 1;
-  }
-
+// Database storage implementation
+export class DatabaseStorage implements IStorage {
   // User operations
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.userCurrentId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
   
   // Contact form operations
   async storeContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission> {
-    const id = this.contactCurrentId++;
-    const timestamp = new Date();
-    const contactSubmission: ContactSubmission = { 
-      ...submission, 
-      id, 
-      createdAt: timestamp 
-    };
+    const [contactSubmission] = await db
+      .insert(contactSubmissions)
+      .values(submission)
+      .returning();
     
-    this.contacts.set(id, contactSubmission);
     return contactSubmission;
   }
   
   async getContactSubmissions(): Promise<ContactSubmission[]> {
-    return Array.from(this.contacts.values());
+    return db.select().from(contactSubmissions);
   }
   
   // Newsletter operations
@@ -85,28 +66,27 @@ export class MemStorage implements IStorage {
       return existingSignup;
     }
     
-    const id = this.newsletterCurrentId++;
-    const timestamp = new Date();
-    const newsletterSignup: NewsletterSignup = { 
-      ...signup, 
-      id, 
-      createdAt: timestamp 
-    };
+    const [newsletterSignup] = await db
+      .insert(newsletterSignups)
+      .values(signup)
+      .returning();
     
-    this.newsletters.set(id, newsletterSignup);
     return newsletterSignup;
   }
   
   async getNewsletterSignups(): Promise<NewsletterSignup[]> {
-    return Array.from(this.newsletters.values());
+    return db.select().from(newsletterSignups);
   }
   
   async getNewsletterSignupByEmail(email: string): Promise<NewsletterSignup | undefined> {
-    return Array.from(this.newsletters.values()).find(
-      (signup) => signup.email.toLowerCase() === email.toLowerCase()
-    );
+    const [signup] = await db
+      .select()
+      .from(newsletterSignups)
+      .where(eq(newsletterSignups.email, email.toLowerCase()));
+    
+    return signup || undefined;
   }
 }
 
 // Create and export the storage instance
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
