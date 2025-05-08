@@ -147,28 +147,69 @@ const InvestorDeck: React.FC = () => {
                 </CardHeader>
                 <CardContent className="space-y-8">
                   <div>
-                    <h3 className="text-xl font-medium mb-4">Investment Opportunity</h3>
+                    <h3 className="text-xl font-medium mb-4">Strategic Investment Round</h3>
                     <div className="bg-[#0A0A14] p-6 rounded-lg">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <div>
-                          <div className="text-3xl text-[#2979FF] mb-2">$15M</div>
-                          <p className="text-gray-300">Series A raise</p>
+                          <div className="text-3xl text-[#2979FF] mb-2">$30M</div>
+                          <p className="text-gray-300">Investment target</p>
                         </div>
                         <div>
-                          <div className="text-3xl text-[#2979FF] mb-2">$120M</div>
+                          <div className="text-3xl text-[#2979FF] mb-2">$380M</div>
                           <p className="text-gray-300">Pre-money valuation</p>
                         </div>
                         <div>
-                          <div className="text-3xl text-[#2979FF] mb-2">18-24mo</div>
-                          <p className="text-gray-300">Expected runway</p>
+                          <div className="text-3xl text-[#2979FF] mb-2">36mo</div>
+                          <p className="text-gray-300">Growth acceleration timeline</p>
                         </div>
                       </div>
                       
-                      <p className="text-gray-300">
-                        Funds will be allocated to scale our technology infrastructure (40%), 
-                        expand AI agent portfolio (25%), increase marketing efforts (20%), 
-                        and grow our engineering team (15%).
+                      <p className="text-gray-300 mb-6">
+                        This strategic investment round is specifically designed to propel Patang Omniverse into 
+                        the next phase of our cosmic expansion, targeting three core pillars for sustained growth and market leadership.
                       </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="bg-[#161630] p-4 rounded-lg border border-[#2979FF]/20">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-[#2979FF]/20 flex items-center justify-center text-[#2979FF]">
+                              <i className="fas fa-rocket text-sm"></i>
+                            </div>
+                            <h4 className="font-medium text-white">Operational Scale</h4>
+                          </div>
+                          <p className="text-sm text-gray-400">$10.5M (35%) for expanding global infrastructure, cloud systems, and market presence</p>
+                        </div>
+                        
+                        <div className="bg-[#161630] p-4 rounded-lg border border-[#FF2E63]/20">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-[#FF2E63]/20 flex items-center justify-center text-[#FF2E63]">
+                              <i className="fas fa-brain text-sm"></i>
+                            </div>
+                            <h4 className="font-medium text-white">Proprietary LLMs</h4>
+                          </div>
+                          <p className="text-sm text-gray-400">$9M (30%) for patented AI technology development and neural synthesis research</p>
+                        </div>
+                        
+                        <div className="bg-[#161630] p-4 rounded-lg border border-[#08FDD8]/20">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-[#08FDD8]/20 flex items-center justify-center text-[#08FDD8]">
+                              <i className="fas fa-users text-sm"></i>
+                            </div>
+                            <h4 className="font-medium text-white">Talent Acquisition</h4>
+                          </div>
+                          <p className="text-sm text-gray-400">$10.5M (35%) for world-class AI researchers and global sales team expansion</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 p-3 bg-[#161630] rounded-lg border border-[#FFC700]/20">
+                        <div className="w-8 h-8 rounded-full bg-[#FFC700]/20 flex items-center justify-center text-[#FFC700]">
+                          <i className="fas fa-lightbulb text-sm"></i>
+                        </div>
+                        <p className="text-sm text-gray-300">
+                          Our strategic investment is designed to scale our operations and proprietary technology to become the dominant force 
+                          in the emerging AI entertainment sector, rivaling traditional media giants like Disney and Sony.
+                        </p>
+                      </div>
                     </div>
                   </div>
                   
