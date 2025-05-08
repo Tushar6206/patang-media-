@@ -7,6 +7,9 @@ import MusicLabSection from "@/components/music-lab-section";
 import CampaignSection from "@/components/campaign-section";
 import InvestorSection from "@/components/investor-section";
 import ContactSection from "@/components/contact-section";
+import VocalVerseSection from "@/components/vocal-verse-section";
+import BeatDropSection from "@/components/beat-drop-section";
+import TwinSyncSection from "@/components/twin-sync-section";
 import Footer from "@/components/footer";
 import { scrollToSection } from "@/lib/utils";
 
@@ -35,6 +38,9 @@ const Home: React.FC = () => {
       <main>
         <HeroSection onNavigate={handleNavigation} />
         <AIAgentsSection onNavigate={handleNavigation} />
+        <VocalVerseSection onNavigate={handleNavigation} />
+        <BeatDropSection onNavigate={handleNavigation} />
+        <TwinSyncSection onNavigate={handleNavigation} />
         <MusicLabSection />
         <CampaignSection onNavigate={handleNavigation} />
         <InvestorSection onNavigate={handleNavigation} />

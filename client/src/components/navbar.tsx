@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -24,13 +33,29 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const navItems = [
+  const mainNavItems = [
     { id: "home", label: "Home" },
     { id: "agents", label: "AI Agents" },
+  ];
+  
+  const featureNavItems = [
+    { id: "vocalverse", label: "VocalVerse™" },
+    { id: "beatdrop", label: "BeatDrop™" },
+    { id: "twinsync", label: "TwinSync™" },
+  ];
+  
+  const additionalNavItems = [
     { id: "music", label: "Music Lab" },
     { id: "campaigns", label: "Campaigns" },
     { id: "investors", label: "Investors" },
     { id: "contact", label: "Contact" },
+  ];
+  
+  const investorDeckItems = [
+    { id: "deck-overview", label: "Overview & Vision" },
+    { id: "deck-financials", label: "Financials" },
+    { id: "deck-roadmap", label: "Product Roadmap" },
+    { id: "deck-team", label: "Team & Advisors" },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -61,8 +86,9 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+          <div className="hidden md:flex items-center space-x-6">
+            {/* Main nav items */}
+            {mainNavItems.map((item) => (
               <a 
                 key={item.id}
                 href={`#${item.id}`}
@@ -75,6 +101,75 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                 {item.label}
               </a>
             ))}
+            
+            {/* Features Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="link" className="nav-link font-sora text-white hover:text-[#2979FF] p-0 h-auto">
+                  <span>AI Features</span>
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-[#121212]/95 backdrop-blur-md border-[#2979FF]/20 text-white">
+                {featureNavItems.map((item) => (
+                  <DropdownMenuItem 
+                    key={item.id}
+                    className="cursor-pointer hover:bg-[#2979FF]/10 hover:text-[#2979FF]"
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            {/* Additional nav items */}
+            {additionalNavItems.map((item) => (
+              <a 
+                key={item.id}
+                href={`#${item.id}`}
+                className="nav-link font-sora text-white hover:text-[#2979FF] transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            
+            {/* Investor Deck Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="bg-[#2979FF]/10 border-[#2979FF]/40 text-[#2979FF] hover:bg-[#2979FF]/20 hover:text-white px-4 py-1 h-auto"
+                >
+                  <span>Investor Deck</span>
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-[#121212]/95 backdrop-blur-md border-[#2979FF]/20 text-white">
+                {investorDeckItems.map((item) => (
+                  <DropdownMenuItem 
+                    key={item.id}
+                    className="cursor-pointer hover:bg-[#2979FF]/10 hover:text-[#2979FF]"
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator className="bg-[#2979FF]/20" />
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-[#2979FF]/10 hover:text-[#2979FF]"
+                  onClick={() => window.location.href = '/investor-deck'}
+                >
+                  <span className="flex items-center">
+                    View Full Deck <i className="fas fa-external-link-alt ml-2 text-xs"></i>
+                  </span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           
           {/* Mobile Menu Button */}
@@ -97,7 +192,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             className="md:hidden mt-4 pb-4"
           >
             <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
+              {mainNavItems.map((item) => (
                 <a 
                   key={item.id}
                   href={`#${item.id}`}
@@ -110,6 +205,67 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   {item.label}
                 </a>
               ))}
+              
+              {/* Feature sections in mobile */}
+              <div className="px-4 py-2">
+                <p className="font-sora text-[#2979FF] mb-2">AI Features</p>
+                <div className="pl-2 border-l-2 border-[#2979FF]/30 flex flex-col space-y-2">
+                  {featureNavItems.map((item) => (
+                    <a 
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="font-sora text-white hover:text-[#2979FF] py-1 text-sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.id);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              
+              {additionalNavItems.map((item) => (
+                <a 
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className="font-sora text-white hover:text-[#2979FF] px-4 py-2 rounded-md"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+              
+              {/* Investor Deck in mobile */}
+              <div className="px-4 py-2">
+                <p className="font-sora text-[#2979FF] mb-2">Investor Deck</p>
+                <div className="pl-2 border-l-2 border-[#2979FF]/30 flex flex-col space-y-2">
+                  {investorDeckItems.map((item) => (
+                    <a 
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="font-sora text-white hover:text-[#2979FF] py-1 text-sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.id);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                  <a 
+                    href="/investor-deck.pdf" 
+                    target="_blank" 
+                    className="font-sora text-white hover:text-[#2979FF] py-1 text-sm"
+                  >
+                    Download Full Deck <i className="fas fa-download ml-1 text-xs"></i>
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
