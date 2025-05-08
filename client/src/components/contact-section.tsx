@@ -287,7 +287,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-lg text-white mb-1">Email</h4>
-                    <p className="text-gray-300">hello@patangmedia.ai</p>
+                    <p className="text-gray-300">info@patswapnfc.com</p>
                   </div>
                 </div>
                 
@@ -298,9 +298,23 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-lg text-white mb-1">Phone</h4>
-                    <p className="text-gray-300">+1 (323) 555-0123</p>
+                    <p className="text-gray-300">+65 (830) 707-47</p>
                   </div>
                 </div>
+              </div>
+              
+              {/* Google Map */}
+              <div className="mt-6 rounded-lg overflow-hidden h-64 border border-[#2979FF]/30">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52896.95032407906!2d-118.16270486071777!3d34.07276159639566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c5825ba25b67%3A0xce7f0daa8a79a8ad!2sAlhambra%2C%20CA!5e0!3m2!1sen!2sus!4v1667356092844!5m2!1sen!2sus" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Patang Media Location"
+                ></iframe>
               </div>
             </motion.div>
             
