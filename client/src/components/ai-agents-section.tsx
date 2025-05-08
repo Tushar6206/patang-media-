@@ -181,10 +181,10 @@ const AIAgentsSection: React.FC<AIAgentsSectionProps> = ({ onNavigate }) => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-6">
-            Our <span className="text-gradient">AI Supermodels</span>
+            Our <span className="text-gradient">Digital Constellation</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-gray-300">
-            Meet our proprietary AI agents with unique personalities, capabilities, and brand partnerships
+          <p className="max-w-3xl mx-auto text-lg text-gray-300">
+            Meet our universe of AI supermodels – digital beings with autonomous personalities, revolutionary capabilities, and global reach that rival traditional entertainment icons
           </p>
         </motion.div>
         

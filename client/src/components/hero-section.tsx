@@ -21,15 +21,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             transition={{ duration: 0.8 }}
           >
             <div>
-              <p className="text-[#08FDD8] font-orbitron tracking-wider mb-3">PATANG MEDIA</p>
+              <p className="text-[#08FDD8] font-orbitron tracking-wider mb-3">PATANG OMNIVERSE</p>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-bold leading-tight">
-                Welcome to the <span className="text-gradient">Future of Media</span>
+                The <span className="text-gradient">Entertainment Dimension</span> of Tomorrow
               </h1>
               <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-xl">
-                Powered by proprietary AI supermodels like Stacy™, we create music, stories, and campaigns that transcend human imagination.
+                Building an infinite cosmos of immersive experiences through our constellation of AI supermodels like Stacy™, revolutionary music, and visionary storytelling that defies reality.
               </p>
-              <p className="mt-4 text-lg text-gray-400 font-light italic">
-                Based in Alhambra, Los Angeles
+              <p className="mt-4 text-lg text-[#2979FF] font-light">
+                Transcending boundaries from Los Angeles to the universe
               </p>
             </div>
             

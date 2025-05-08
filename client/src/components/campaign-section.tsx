@@ -19,10 +19,10 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ onNavigate }) => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-6">
-            Campaign <span className="text-gradient">Engine</span>
+            Omni-<span className="text-gradient">Influence Matrix</span>
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-gray-300">
-            Our AI-driven campaign management system delivers end-to-end marketing solutions
+            Our quantum marketing ecosystem transcends traditional campaigns, pioneering a new era where AI-driven synthetic celebrities reshape global consumer behavior
           </p>
         </motion.div>
         

@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
               <span className="font-orbitron font-bold text-white text-xl">P</span>
             </div>
             <span className="font-orbitron font-bold text-xl text-white">
-              PATANG <span className="text-[#2979FF]">MEDIA</span>
+              PATANG <span className="text-[#2979FF]">OMNIVERSE</span>
             </span>
           </div>
           

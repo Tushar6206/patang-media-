@@ -89,10 +89,10 @@ const MusicLabSection: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-6">
-            Patang <span className="text-gradient">Music Lab</span>
+            The <span className="text-gradient">Sonic Dimension</span>
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-gray-300">
-            AI-generated trance music with emotion-mapping, beatsync, and voice layering technology
+            Revolutionizing the global music industry with AI-orchestrated symphonies that blend emotion-mapping algorithms, quantum beatsync technologies, and neural voice synthesis
           </p>
         </motion.div>
         
