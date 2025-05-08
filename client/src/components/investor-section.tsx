@@ -19,10 +19,10 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-6">
-            Investor <span className="text-gradient">Relations</span>
+            Galactic <span className="text-gradient">Expansion Initiative</span>
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-gray-300">
-            Join us in shaping the future of media and entertainment through AI innovation
+            Join the vanguard of visionaries co-creating the multi-trillion dollar AI entertainment paradigm that will redefine humanity's relationship with media
           </p>
         </motion.div>
         
@@ -44,7 +44,7 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Patang Media is transforming the entertainment and media landscape by leveraging advanced AI technologies to create authentic, engaging, and scalable content. Our vision is to become the definitive AI-powered media company of the future.
+              Patang Omniverse is architecting the next evolution of human entertainment by harnessing quantum AI technologies to create immersive, transcendent, and infinitely scalable experiences. Our vision is to become the dominant force in digital consciousness entertainment, rivaling and eventually surpassing traditional media empires like Disney and Sony.
             </motion.p>
             
             <div className="space-y-6 pt-4">
@@ -169,9 +169,9 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <h3 className="text-2xl font-orbitron font-bold mb-4">Partner With the Next Pixar of AI</h3>
+          <h3 className="text-2xl font-orbitron font-bold mb-4">Co-Create the Disney of the Digital Consciousness Era</h3>
           <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-            We are now inviting strategic investors and innovation-forward media partners to fund our expansion, model licensing, and SaaS tool development.
+            We are now accepting a limited number of visionary capital partners to join our interstellar journey toward becoming the world's dominant AI entertainment conglomerate, with projections to eclipse traditional media empires within the decade.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

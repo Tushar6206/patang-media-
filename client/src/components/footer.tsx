@@ -22,11 +22,11 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <span className="font-orbitron font-bold text-white text-xl">P</span>
               </div>
               <span className="font-orbitron font-bold text-xl text-white">
-                PATANG <span className="text-[#2979FF]">MEDIA</span>
+                PATANG <span className="text-[#2979FF]">OMNIVERSE</span>
               </span>
             </div>
             
-            <p className="text-gray-400 mb-4">Future of Media, Designed by Superintelligence.</p>
+            <p className="text-gray-400 mb-4">Architecting the Infinite Entertainment Universe</p>
             
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-[#2979FF] transition-colors">
@@ -139,7 +139,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           transition={{ duration: 0.5 }}
         >
           <p className="text-gray-500">
-            © {new Date().getFullYear()} Patang Media, Inc. All rights reserved. All trademarks, AI supermodels, and creative assets mentioned are the property of Patang Media.
+            © {new Date().getFullYear()} Patang Omniverse, Inc. All rights reserved. All trademarks, AI supermodels, and creative assets mentioned are the property of Patang Omniverse.
           </p>
         </motion.div>
       </div>
