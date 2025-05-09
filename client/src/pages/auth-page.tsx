@@ -6,7 +6,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +22,7 @@ const loginSchema = z.object({
   password: z.string()
     .min(1, "Password is required")
     .max(100, "Password cannot exceed 100 characters"),
+  rememberMe: z.boolean().optional().default(false),
 });
 
 // Registration form schema
@@ -48,6 +51,7 @@ export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<string>("login");
   const [location, navigate] = useLocation();
   const { user, loginMutation, registerMutation } = useAuth();
+  const { toast } = useToast();
   
   // Redirect if already logged in
   if (user) {
@@ -61,6 +65,7 @@ export default function AuthPage() {
     defaultValues: {
       username: "",
       password: "",
+      rememberMe: false,
     },
   });
   
@@ -220,6 +225,27 @@ export default function AuthPage() {
                           </FormItem>
                         )}
                       />
+
+                      <FormField
+                        control={loginForm.control}
+                        name="rememberMe"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="data-[state=checked]:bg-[#8E24AA] data-[state=checked]:border-[#8E24AA]"
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel className="text-sm font-normal text-gray-400">
+                                Remember me
+                              </FormLabel>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
                       
                       <Button 
                         type="submit" 
@@ -243,6 +269,21 @@ export default function AuthPage() {
                   </Form>
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4">
+                  <div className="flex justify-center w-full">
+                    <button 
+                      className="text-sm text-gray-400 hover:text-[#00BCD4] transition-colors"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toast({
+                          title: "Coming Soon",
+                          description: "Password recovery functionality will be available soon.",
+                          variant: "default",
+                        });
+                      }}
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
                   <div className="text-sm text-gray-500 text-center w-full">
                     Don't have an account?{" "}
                     <button 

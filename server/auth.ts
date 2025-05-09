@@ -187,7 +187,7 @@ export function setupAuth(app: Express) {
   // Login endpoint
   app.post("/api/login", (req, res, next) => {
     // Validate request data first
-    const { username, password } = req.body;
+    const { username, password, rememberMe } = req.body;
     
     if (!username || !password) {
       return res.status(400).json({
@@ -220,6 +220,15 @@ export function setupAuth(app: Express) {
         });
       }
       
+      // Set session cookie options based on rememberMe
+      if (rememberMe) {
+        // If remember me is checked, set cookie expiration to 30 days
+        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+      } else {
+        // Otherwise session expires when browser closes (default)
+        req.session.cookie.expires = undefined;
+      }
+      
       req.login(user, (err: any) => {
         if (err) {
           console.error("Session error:", err);
@@ -234,7 +243,8 @@ export function setupAuth(app: Express) {
         res.status(200).json({
           success: true,
           message: "Login successful",
-          user: userInfo
+          user: userInfo,
+          sessionExpiry: rememberMe ? '30 days' : 'browser session',
         });
       });
     })(req, res, next);
