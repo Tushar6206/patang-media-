@@ -394,7 +394,7 @@ export default function ProfilePage() {
                                 )}
                                 <span>{sample.duration || "Unknown duration"}</span>
                               </div>
-                              {sample.features?.length > 0 && (
+                              {sample.features && sample.features.length > 0 && (
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {sample.features.slice(0, 2).map((feature, idx) => (
                                     <span key={idx} className="text-xs bg-[#2A2A4A] text-gray-300 px-2 py-0.5 rounded-full">
