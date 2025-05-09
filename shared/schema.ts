@@ -12,6 +12,7 @@ export const users = pgTable("users", {
   profileImage: text("profile_image"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  rhythmRouletteGenerationsCount: integer("rhythm_roulette_generations_count").default(0),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

@@ -54,6 +54,7 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
   const [moodInput, setMoodInput] = useState('');
   const [selectedComposition, setSelectedComposition] = useState<RhythmRouletteComposition | null>(null);
   const [showCompositionDialog, setShowCompositionDialog] = useState(false);
+  const [generationsRemaining, setGenerationsRemaining] = useState<number | null>(null);
 
   // Fetch user's listening history
   const {
@@ -83,7 +84,27 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
       return data.data || [];
     },
     enabled: !!user,
+    onSuccess: () => {
+      // Fetch the generation count after loading compositions
+      fetchGenerationCount();
+    }
   });
+  
+  // Fetch user's generation count
+  const fetchGenerationCount = async () => {
+    if (!user) return;
+    
+    try {
+      const response = await apiRequest('GET', '/api/rhythm-roulette/generation-count');
+      const data = await response.json();
+      
+      if (data.success) {
+        setGenerationsRemaining(Math.max(0, 2 - data.count));  // Max 2 generations
+      }
+    } catch (error) {
+      console.error("Error fetching generation count:", error);
+    }
+  };
 
   // Mutation to add a track to listening history
   const addTrackMutation = useMutation({
@@ -127,6 +148,12 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
         title: 'Composition Generated',
         description: `"${data.data.title}" has been created`,
       });
+      
+      // Update the remaining generations count
+      if (data.remainingGenerations !== undefined) {
+        setGenerationsRemaining(data.remainingGenerations);
+      }
+      
       refetchCompositions();
     },
     onError: (error: Error) => {

@@ -9,7 +9,7 @@ import {
   rhythmRouletteCompositions, type RhythmRouletteComposition, type InsertRhythmRoulette
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, sql } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -58,6 +58,10 @@ export interface IStorage {
   getUserRhythmRouletteCompositions(userId: number): Promise<RhythmRouletteComposition[]>;
   getRhythmRouletteComposition(id: number): Promise<RhythmRouletteComposition | undefined>;
   deleteRhythmRouletteComposition(id: number): Promise<void>;
+  
+  // Rhythm Roulette generation tracking
+  incrementRhythmRouletteGenerationCount(userId: number): Promise<number>;
+  getRhythmRouletteGenerationCount(userId: number): Promise<number>;
 }
 
 // Database storage implementation
@@ -137,6 +141,28 @@ export class DatabaseStorage implements IStorage {
       .returning();
     
     return updatedUser;
+  }
+  
+  async incrementRhythmRouletteGenerationCount(userId: number): Promise<number> {
+    const [updatedUser] = await db
+      .update(users)
+      .set({
+        rhythmRouletteGenerationsCount: sql`${users.rhythmRouletteGenerationsCount} + 1`,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId))
+      .returning();
+    
+    return updatedUser.rhythmRouletteGenerationsCount;
+  }
+  
+  async getRhythmRouletteGenerationCount(userId: number): Promise<number> {
+    const [user] = await db
+      .select({ generationsCount: users.rhythmRouletteGenerationsCount })
+      .from(users)
+      .where(eq(users.id, userId));
+    
+    return user?.generationsCount || 0;
   }
 
   // User beats operations

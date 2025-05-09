@@ -349,6 +349,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Rhythm Roulette API endpoints
   app.post("/api/rhythm-roulette", async (req, res) => {
     try {
+      // Check authentication
       if (!req.isAuthenticated()) {
         return res.status(401).json({ 
           success: false, 
@@ -357,8 +358,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const userId = req.user.id;
+      
+      // Check if user has reached their generation limit
+      const generationCount = await storage.getRhythmRouletteGenerationCount(userId);
+      const MAX_GENERATIONS = 2;  // Limit to 2 generations per user
+      
+      if (generationCount >= MAX_GENERATIONS) {
+        return res.status(403).json({
+          success: false,
+          message: "You have reached your limit of 2 Rhythm Roulette compositions. Please delete an existing composition to generate a new one.",
+          remainingGenerations: 0,
+          totalGenerations: generationCount
+        });
+      }
+      
       // Get user's listening history to use for generating the composition
       const listeningHistory = await storage.getUserListeningHistory(userId, 5);
+      
+      if (listeningHistory.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Please add at least one track to your listening history before generating a composition"
+        });
+      }
       
       // Extract track titles and artists for the AI prompt
       const historyContext = listeningHistory.map(entry => 
@@ -391,10 +413,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         uniqueTwist
       });
       
+      // Increment user's generation count
+      const newCount = await storage.incrementRhythmRouletteGenerationCount(userId);
+      const remainingGenerations = Math.max(0, MAX_GENERATIONS - newCount);
+      
       res.status(201).json({ 
         success: true, 
         message: "Rhythm Roulette composition generated",
-        data: composition
+        data: composition,
+        remainingGenerations: remainingGenerations,
+        totalGenerations: newCount
       });
     } catch (error) {
       console.error("Generate Rhythm Roulette error:", error);
