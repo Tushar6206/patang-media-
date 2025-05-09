@@ -802,12 +802,14 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
               Investment Inquiries
             </motion.a>
             <motion.a 
-              href="#"
+              href="/patang-omniverse-investor-brief.html"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-transparent border border-[#2979FF] text-[#2979FF] hover:bg-[#2979FF]/10 font-orbitron rounded-md transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Download Investor Brief
+              <i className="fas fa-file-alt mr-2"></i> Download Investor Brief
             </motion.a>
           </div>
         </motion.div>

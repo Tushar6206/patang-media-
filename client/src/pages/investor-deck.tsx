@@ -21,13 +21,23 @@ const InvestorDeck: React.FC = () => {
             <i className="fas fa-arrow-left mr-2"></i> Back to Home
           </Button>
           
-          <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-gradient-custom flex items-center justify-center">
-              <span className="font-orbitron font-bold text-white text-sm">P</span>
+          <div className="flex items-center gap-6">
+            <Button 
+              variant="outline"
+              className="text-[#2979FF] border-[#2979FF]/50 hover:bg-[#2979FF]/10"
+              onClick={() => window.open("/patang-omniverse-investor-brief.html", "_blank")}
+            >
+              <i className="fas fa-file-alt mr-2"></i> Download Full Brief
+            </Button>
+            
+            <div className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded-full bg-gradient-custom flex items-center justify-center">
+                <span className="font-orbitron font-bold text-white text-sm">P</span>
+              </div>
+              <span className="font-orbitron font-bold text-lg text-white">
+                PATANG <span className="text-[#2979FF]">OMNIVERSE</span>
+              </span>
             </div>
-            <span className="font-orbitron font-bold text-lg text-white">
-              PATANG <span className="text-[#2979FF]">OMNIVERSE</span>
-            </span>
           </div>
         </div>
         

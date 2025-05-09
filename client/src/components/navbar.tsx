@@ -260,11 +260,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                     </a>
                   ))}
                   <a 
-                    href="/investor-deck.pdf" 
+                    href="/patang-omniverse-investor-brief.html" 
                     target="_blank" 
                     className="font-sora text-white hover:text-[#2979FF] py-1 text-sm"
                   >
-                    Download Full Deck <i className="fas fa-download ml-1 text-xs"></i>
+                    Download Investor Brief <i className="fas fa-file-alt ml-1 text-xs"></i>
                   </a>
                 </div>
               </div>
