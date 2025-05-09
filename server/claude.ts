@@ -107,6 +107,28 @@ export class StacyAgent extends AIAgent {
     
     return this.generateResponse(prompt);
   }
+  
+  async generateRhythmRoulette(listeningHistory: string[]): Promise<string> {
+    const historyContext = listeningHistory.length > 0 
+      ? `Based on the user's listening history that includes: ${listeningHistory.join(', ')}`
+      : `Without any specific listening history`;
+    
+    const prompt = `${historyContext}, create a surprise mini-composition concept called "Rhythm Roulette".
+    
+    This should be a playful, unexpected musical idea that takes inspiration from their taste but introduces surprising elements.
+    
+    Include in your response:
+    1. A catchy title for this mini-composition
+    2. Key musical elements and instruments
+    3. Tempo and rhythmic patterns
+    4. Overall mood and vibe
+    5. A brief 2-3 sentence narrative about what this composition evokes
+    6. One unexpected twist or element that makes this composition unique
+    
+    Format this as a creative, professionally-worded concept that would inspire a music producer.`;
+    
+    return this.generateResponse(prompt);
+  }
 }
 
 // Kairo - Visual Design and Avatar Specialist
@@ -207,6 +229,22 @@ export function registerAgentRoutes(app: any) {
       res.status(500).json({
         success: false,
         message: error.message || 'Failed to analyze music sample'
+      });
+    }
+  });
+  
+  // Rhythm Roulette - Generate surprise mini-compositions
+  app.post('/api/agents/stacy/rhythm-roulette', checkAuth, async (req: Request, res: Response) => {
+    try {
+      const { listeningHistory = [] } = req.body;
+      
+      const response = await stacyAgent.generateRhythmRoulette(listeningHistory);
+      res.json({ success: true, response });
+    } catch (error: any) {
+      console.error('Error in Rhythm Roulette endpoint:', error);
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Failed to generate Rhythm Roulette composition'
       });
     }
   });

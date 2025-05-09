@@ -168,3 +168,53 @@ export const insertUserVoiceSampleSchema = createInsertSchema(userVoiceSamples).
 
 export type InsertUserVoiceSample = z.infer<typeof insertUserVoiceSampleSchema>;
 export type UserVoiceSample = typeof userVoiceSamples.$inferSelect;
+
+// Listening history for Rhythm Roulette feature
+export const listeningHistory = pgTable("listening_history", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  trackTitle: text("track_title").notNull(), 
+  artist: text("artist"),
+  genre: text("genre"),
+  mood: text("mood"),
+  timestamp: timestamp("timestamp").defaultNow(),
+});
+
+export const insertListeningHistorySchema = createInsertSchema(listeningHistory).pick({
+  userId: true,
+  trackTitle: true,
+  artist: true,
+  genre: true,
+  mood: true,
+});
+
+export type InsertListeningHistory = z.infer<typeof insertListeningHistorySchema>;
+export type ListeningHistory = typeof listeningHistory.$inferSelect;
+
+// Rhythm Roulette compositions
+export const rhythmRouletteCompositions = pgTable("rhythm_roulette_compositions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  elements: text("elements").notNull(),
+  tempo: text("tempo"),
+  mood: text("mood"),
+  narrative: text("narrative"),
+  uniqueTwist: text("unique_twist"),
+  generatedAt: timestamp("generated_at").defaultNow(),
+});
+
+export const insertRhythmRouletteSchema = createInsertSchema(rhythmRouletteCompositions).pick({
+  userId: true,
+  title: true,
+  description: true,
+  elements: true,
+  tempo: true,
+  mood: true,
+  narrative: true,
+  uniqueTwist: true,
+});
+
+export type InsertRhythmRoulette = z.infer<typeof insertRhythmRouletteSchema>;
+export type RhythmRouletteComposition = typeof rhythmRouletteCompositions.$inferSelect;

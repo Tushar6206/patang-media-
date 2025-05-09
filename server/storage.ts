@@ -4,7 +4,9 @@ import {
   newsletterSignups, type NewsletterSignup, type InsertNewsletterSignup,
   userBeats, type UserBeat, type InsertUserBeat,
   userAvatars, type UserAvatar, type InsertUserAvatar,
-  userVoiceSamples, type UserVoiceSample, type InsertUserVoiceSample
+  userVoiceSamples, type UserVoiceSample, type InsertUserVoiceSample,
+  listeningHistory, type ListeningHistory, type InsertListeningHistory,
+  rhythmRouletteCompositions, type RhythmRouletteComposition, type InsertRhythmRoulette
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc } from "drizzle-orm";
@@ -46,6 +48,16 @@ export interface IStorage {
   getUserVoiceSample(id: number): Promise<UserVoiceSample | undefined>;
   updateUserVoiceSample(id: number, data: Partial<Omit<UserVoiceSample, 'id' | 'userId' | 'createdAt' | 'updatedAt'>>): Promise<UserVoiceSample>;
   deleteUserVoiceSample(id: number): Promise<void>;
+  
+  // Listening history for Rhythm Roulette
+  addListeningHistoryEntry(entry: InsertListeningHistory): Promise<ListeningHistory>;
+  getUserListeningHistory(userId: number, limit?: number): Promise<ListeningHistory[]>;
+  
+  // Rhythm Roulette compositions
+  createRhythmRouletteComposition(composition: InsertRhythmRoulette): Promise<RhythmRouletteComposition>;
+  getUserRhythmRouletteCompositions(userId: number): Promise<RhythmRouletteComposition[]>;
+  getRhythmRouletteComposition(id: number): Promise<RhythmRouletteComposition | undefined>;
+  deleteRhythmRouletteComposition(id: number): Promise<void>;
 }
 
 // Database storage implementation
@@ -272,6 +284,58 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(userVoiceSamples)
       .where(eq(userVoiceSamples.id, id));
+  }
+  
+  // Listening history operations
+  async addListeningHistoryEntry(entry: InsertListeningHistory): Promise<ListeningHistory> {
+    const [newEntry] = await db
+      .insert(listeningHistory)
+      .values(entry)
+      .returning();
+    
+    return newEntry;
+  }
+  
+  async getUserListeningHistory(userId: number, limit: number = 10): Promise<ListeningHistory[]> {
+    return db
+      .select()
+      .from(listeningHistory)
+      .where(eq(listeningHistory.userId, userId))
+      .orderBy(desc(listeningHistory.timestamp))
+      .limit(limit);
+  }
+  
+  // Rhythm Roulette compositions operations
+  async createRhythmRouletteComposition(composition: InsertRhythmRoulette): Promise<RhythmRouletteComposition> {
+    const [newComposition] = await db
+      .insert(rhythmRouletteCompositions)
+      .values(composition)
+      .returning();
+    
+    return newComposition;
+  }
+  
+  async getUserRhythmRouletteCompositions(userId: number): Promise<RhythmRouletteComposition[]> {
+    return db
+      .select()
+      .from(rhythmRouletteCompositions)
+      .where(eq(rhythmRouletteCompositions.userId, userId))
+      .orderBy(desc(rhythmRouletteCompositions.generatedAt));
+  }
+  
+  async getRhythmRouletteComposition(id: number): Promise<RhythmRouletteComposition | undefined> {
+    const [composition] = await db
+      .select()
+      .from(rhythmRouletteCompositions)
+      .where(eq(rhythmRouletteCompositions.id, id));
+    
+    return composition || undefined;
+  }
+  
+  async deleteRhythmRouletteComposition(id: number): Promise<void> {
+    await db
+      .delete(rhythmRouletteCompositions)
+      .where(eq(rhythmRouletteCompositions.id, id));
   }
 }
 
