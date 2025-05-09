@@ -147,13 +147,17 @@ export class DatabaseStorage implements IStorage {
     const [updatedUser] = await db
       .update(users)
       .set({
-        rhythmRouletteGenerationsCount: sql`${users.rhythmRouletteGenerationsCount} + 1`,
+        rhythmRouletteGenerationsCount: sql`COALESCE(${users.rhythmRouletteGenerationsCount}, 0) + 1`,
         updatedAt: new Date(),
       })
       .where(eq(users.id, userId))
       .returning();
     
-    return updatedUser.rhythmRouletteGenerationsCount;
+    // The column has a default value of 0, but we need to handle potential null values
+    // that might occur with older users or if database schema evolves
+    return typeof updatedUser.rhythmRouletteGenerationsCount === 'number' 
+      ? updatedUser.rhythmRouletteGenerationsCount 
+      : 1; // Default to 1 if we've just incremented from null
   }
   
   async getRhythmRouletteGenerationCount(userId: number): Promise<number> {
@@ -162,8 +166,8 @@ export class DatabaseStorage implements IStorage {
       .from(users)
       .where(eq(users.id, userId));
     
-    // Return 0 as default if no user found or count is null
-    return (user && user.generationsCount !== null) ? user.generationsCount : 0;
+    // Return 0 as default if no user found or count is null/undefined
+    return (user && typeof user.generationsCount === 'number') ? user.generationsCount : 0;
   }
 
   // User beats operations
