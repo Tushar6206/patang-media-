@@ -32,8 +32,13 @@ class AIAgent {
         messages: [{ role: 'user', content: prompt }],
       });
       
-      return response.content[0].text;
-    } catch (error) {
+      const content = response.content[0];
+      if (content.type === 'text') {
+        return content.text;
+      } else {
+        return "Response doesn't contain text content";
+      }
+    } catch (error: any) {
       console.error(`Error with ${this.agentName} agent:`, error);
       throw new Error(`Sorry, ${this.agentName} is currently unavailable. Please try again later.`);
     }
@@ -68,8 +73,13 @@ class AIAgent {
         }],
       });
       
-      return response.content[0].text;
-    } catch (error) {
+      const content = response.content[0];
+      if (content.type === 'text') {
+        return content.text;
+      } else {
+        return "Response doesn't contain text content";
+      }
+    } catch (error: any) {
       console.error(`Error with ${this.agentName} image analysis:`, error);
       throw new Error(`Sorry, ${this.agentName} couldn't analyze this image. Please try again later.`);
     }
@@ -171,7 +181,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await stacyAgent.generateMusicPrompt(genre, mood, instruments);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Stacy music prompt endpoint:', error);
       res.status(500).json({
         success: false,
@@ -192,7 +202,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await stacyAgent.analyzeMusicSample(description);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Stacy music analysis endpoint:', error);
       res.status(500).json({
         success: false,
@@ -214,7 +224,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await kairoAgent.generateAvatarConcept(description, style);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Kairo avatar concept endpoint:', error);
       res.status(500).json({
         success: false,
@@ -235,7 +245,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await kairoAgent.reviewVisualDesign(image);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Kairo design review endpoint:', error);
       res.status(500).json({
         success: false,
@@ -257,7 +267,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await viyaAgent.generateVoicePrompt(character, emotion, context);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Viya voice prompt endpoint:', error);
       res.status(500).json({
         success: false,
@@ -278,7 +288,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await viyaAgent.analyzeSoundDesign(description);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in Viya sound analysis endpoint:', error);
       res.status(500).json({
         success: false,
@@ -320,7 +330,7 @@ export function registerAgentRoutes(app: any) {
       
       const response = await agent.generateResponse(message);
       res.json({ success: true, response });
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error in agent chat endpoint:`, error);
       res.status(500).json({
         success: false,
