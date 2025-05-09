@@ -88,20 +88,60 @@ export function setupAuth(app: Express) {
   // Registration endpoint
   app.post("/api/register", async (req, res, next) => {
     try {
-      const { username, password } = req.body;
+      const { username, password, email } = req.body;
       
       // Validate input
       if (!username || !password) {
         return res.status(400).json({ 
           success: false, 
-          message: "Username and password are required" 
+          message: "Username and password are required",
+          errors: {
+            ...(username ? {} : { username: "Username is required" }),
+            ...(password ? {} : { password: "Password is required" })
+          }
         });
       }
       
+      // Validate username format
+      if (!/^[a-zA-Z0-9_-]{3,50}$/.test(username)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Invalid username format",
+          errors: {
+            username: "Username must be 3-50 characters and can only contain letters, numbers, underscores and hyphens"
+          }
+        });
+      }
+      
+      // Validate password strength
       if (password.length < 8) {
         return res.status(400).json({ 
           success: false, 
-          message: "Password must be at least 8 characters long" 
+          message: "Password is too short",
+          errors: {
+            password: "Password must be at least 8 characters long"
+          }
+        });
+      }
+      
+      if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Password is too weak",
+          errors: {
+            password: "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+          }
+        });
+      }
+      
+      // Validate email if provided
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Invalid email format",
+          errors: {
+            email: "Please enter a valid email address"
+          }
         });
       }
 
@@ -110,7 +150,10 @@ export function setupAuth(app: Express) {
       if (existingUser) {
         return res.status(400).json({
           success: false,
-          message: "Username already exists"
+          message: "Username already exists",
+          errors: {
+            username: "This username is already taken. Please choose another one."
+          }
         });
       }
 
@@ -118,6 +161,7 @@ export function setupAuth(app: Express) {
       const user = await storage.createUser({
         username,
         password: await hashPassword(password),
+        ...(email ? { email } : {})
       });
       
       // Log the user in automatically
@@ -135,25 +179,56 @@ export function setupAuth(app: Express) {
       console.error("Registration error:", error);
       res.status(500).json({ 
         success: false, 
-        message: "An error occurred during registration" 
+        message: "An error occurred during registration. Please try again later."
       });
     }
   });
 
   // Login endpoint
   app.post("/api/login", (req, res, next) => {
+    // Validate request data first
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing credentials",
+        errors: {
+          ...(username ? {} : { username: "Username is required" }),
+          ...(password ? {} : { password: "Password is required" })
+        }
+      });
+    }
+    
     passport.authenticate("local", (err: any, user: Express.User | false, info: { message: string } | undefined) => {
-      if (err) return next(err);
+      if (err) {
+        console.error("Login error:", err);
+        return res.status(500).json({
+          success: false,
+          message: "An error occurred during login. Please try again later."
+        });
+      }
       
       if (!user) {
+        // Increment failed login attempts (could add rate limiting here)
         return res.status(401).json({ 
           success: false, 
-          message: info?.message || "Invalid username or password" 
+          message: info?.message || "Invalid username or password",
+          errors: {
+            auth: "The username or password you entered is incorrect"
+          }
         });
       }
       
       req.login(user, (err: any) => {
-        if (err) return next(err);
+        if (err) {
+          console.error("Session error:", err);
+          return res.status(500).json({
+            success: false,
+            message: "An error occurred while creating your session. Please try again."
+          });
+        }
+        
         // Return user info (except password)
         const { password, ...userInfo } = user as Express.User;
         res.status(200).json({

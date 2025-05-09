@@ -1,0 +1,78 @@
+You are a QA tester evaluating Patang Omniverse, a web-based platform designed to showcase or power products under the Patang Vision umbrella (such as Velo, VerifAI, or other experiences). Your task is to test the app’s functionality, content flow, responsiveness, performance, and overall coherence with its positioning as a next-gen, futuristic digital hub.
+
+1. Landing Page & Branding
+Visit the site: https://PatangOmniverse.replit.app
+
+Confirm the presence of a clear brand identity (logo, name, tone).
+
+Does the UI reflect a modern, futuristic theme in line with the “Omniverse” concept?
+
+Is there a call-to-action or directional flow for first-time users?
+
+2. Navigation & Page Flow
+Navigate through each section or route:
+
+Are there clickable menus or buttons?
+
+Do all internal links work?
+
+Is the structure logical? (e.g., Home → Products → VerifAI/Velo → Contact/Team/About)
+
+3. Responsiveness
+Test across devices:
+
+Desktop, Tablet, and Mobile (Chrome Dev Tools or actual devices).
+
+Are layouts adapting cleanly?
+
+Any overlapping text, broken cards, or misaligned sections?
+
+4. Functionality Checks
+If there are any interactive components (forms, product demos, videos, logins, signups):
+
+Do they work?
+
+What happens when you enter invalid input?
+
+Is feedback clear and contextual (e.g., error messages)?
+
+5. Performance
+Note the page load time.
+
+Are images or animations optimized?
+
+Is there any noticeable lag or flicker when navigating?
+
+6. Content Quality
+Are descriptions of products like Velo and VerifAI clear, jargon-free, and compelling?
+
+Is there consistency in grammar, tone, and terminology?
+
+Any typos or broken text formatting?
+
+7. Thematic Fit
+Does the visual + textual experience match the vision of:
+
+A Gen Z performance drink (Velo)
+
+A gamified AI-powered verification engine (VerifAI)
+
+A multi-platform futuristic ecosystem (Patang Omniverse)?
+
+Are key themes like “gamification”, “credibility”, “new-age health”, or “AI empowerment” visible?
+
+8. Bug/Glitch Reporting
+Attempt to break the flow:
+
+Click rapidly between pages
+
+Submit blank or nonsensical values
+
+Visit routes like /undefined, /admin, /xyz
+
+Note any unhandled exceptions, broken pages, or developer-facing errors.
+
+9. Suggestions
+Based on your experience, suggest 2–3 UX or branding improvements.
+
+Would a new visitor understand what Patang Omniverse is offering?

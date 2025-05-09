@@ -70,12 +70,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast({
         title: "Login successful",
         description: `Welcome back, ${userData?.username || "User"}!`,
+        variant: "success",
       });
+      
+      // Trigger login event that could be used for analytics or session tracking
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('user:login', { 
+          detail: { username: userData?.username }
+        });
+        window.dispatchEvent(event);
+      }
     },
     onError: (error: Error) => {
+      console.error("Login error:", error);
+      
+      let errorMessage = "Invalid username or password";
+      
+      // Try to parse the error response
+      try {
+        const errorData = JSON.parse(error.message);
+        errorMessage = errorData.message || errorData.errors?.auth || "Login failed";
+      } catch (e) {
+        // If parsing fails, use the error message directly
+        errorMessage = error.message || errorMessage;
+      }
+      
       toast({
         title: "Login failed",
-        description: error.message || "Invalid username or password",
+        description: errorMessage,
         variant: "destructive",
       });
     },
@@ -92,12 +114,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast({
         title: "Registration successful",
         description: `Welcome to Patang Omniverse, ${data.user.username}!`,
+        variant: "success",
       });
+      
+      // Trigger a welcome event that could be used for analytics
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('user:registered', { 
+          detail: { username: data.user.username }
+        });
+        window.dispatchEvent(event);
+      }
     },
     onError: (error: Error) => {
+      console.error("Registration error:", error);
+      
+      let errorMessage = "Could not create account";
+      let errorDetails: Record<string, string> = {};
+      
+      // Try to parse the error response
+      try {
+        const errorData = JSON.parse(error.message);
+        errorMessage = errorData.message || "Registration failed";
+        errorDetails = errorData.errors || {};
+        
+        // If we have specific field errors, update the form with them
+        if (Object.keys(errorDetails).length > 0) {
+          const detailsStr = Object.values(errorDetails).join(', ');
+          errorMessage = detailsStr || errorMessage;
+        }
+      } catch (e) {
+        // If parsing fails, use the error message directly
+        errorMessage = error.message || errorMessage;
+      }
+      
       toast({
         title: "Registration failed",
-        description: error.message || "Could not create account",
+        description: errorMessage,
         variant: "destructive",
       });
     },

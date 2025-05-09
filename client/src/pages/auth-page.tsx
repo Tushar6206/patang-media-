@@ -14,15 +14,30 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 // Login form schema
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  username: z.string()
+    .min(1, "Username is required")
+    .max(50, "Username cannot exceed 50 characters"),
+  password: z.string()
+    .min(1, "Password is required")
+    .max(100, "Password cannot exceed 100 characters"),
 });
 
 // Registration form schema
 const registerSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
-  email: z.string().email("Please enter a valid email").optional(),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  username: z.string()
+    .min(3, "Username must be at least 3 characters")
+    .max(50, "Username cannot exceed 50 characters")
+    .regex(/^[a-zA-Z0-9_-]+$/, "Username can only contain letters, numbers, underscores and hyphens"),
+  email: z.string()
+    .email("Please enter a valid email")
+    .optional()
+    .or(z.literal('')),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(100, "Password cannot exceed 100 characters")
+    .regex(/.*[A-Z].*/, "Password must contain at least one uppercase letter")
+    .regex(/.*[a-z].*/, "Password must contain at least one lowercase letter")
+    .regex(/.*\d.*/, "Password must contain at least one number"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -72,14 +87,14 @@ export default function AuthPage() {
   };
   
   return (
-    <div className="min-h-screen bg-[#060612] flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl flex flex-col md:flex-row rounded-lg overflow-hidden">
-        {/* Hero Section */}
+    <div className="min-h-screen bg-[#060612] flex items-center justify-center p-4 py-16">
+      <div className="w-full max-w-6xl flex flex-col md:flex-row rounded-lg overflow-hidden shadow-2xl">
+        {/* Hero Section - Hidden on very small mobile devices */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full md:w-1/2 bg-gradient-to-br from-[#121232] to-[#1E1E48] p-8 md:p-12 flex flex-col justify-center"
+          className="w-full md:w-1/2 bg-gradient-to-br from-[#121232] to-[#1E1E48] p-8 md:p-12 flex flex-col justify-center hidden xs:flex"
         >
           <div className="max-w-md mx-auto text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-orbitron font-bold mb-6 text-white">
@@ -132,6 +147,20 @@ export default function AuthPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="w-full md:w-1/2 bg-[#0A0A14] p-8 md:p-12"
         >
+          {/* Small screen logo - shown only on very small devices */}
+          <div className="flex justify-center mb-6 xs:hidden">
+            <div className="flex flex-col items-center">
+              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-[#8E24AA] to-[#00BCD4] flex items-center justify-center">
+                <span className="font-orbitron font-bold text-white text-2xl">P</span>
+              </div>
+              <h1 className="text-2xl font-orbitron font-bold mt-3 text-white">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8E24AA] to-[#00BCD4]">
+                  Patang
+                </span>
+              </h1>
+            </div>
+          </div>
+          
           <Tabs 
             defaultValue="login" 
             onValueChange={setActiveTab}
@@ -290,6 +319,9 @@ export default function AuthPage() {
                                 className="bg-[#0A0A14] border-[#2A2A4A]"
                               />
                             </FormControl>
+                            <div className="text-xs text-gray-500 mt-1">
+                              Password must contain at least 8 characters, including uppercase, lowercase, and a number
+                            </div>
                             <FormMessage />
                           </FormItem>
                         )}
