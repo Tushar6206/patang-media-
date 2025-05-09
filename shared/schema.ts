@@ -79,3 +79,92 @@ export const insertNewsletterSchema = createInsertSchema(newsletterSignups).pick
 
 export type InsertNewsletterSignup = z.infer<typeof insertNewsletterSchema>;
 export type NewsletterSignup = typeof newsletterSignups.$inferSelect;
+
+// User-generated beats schema
+export const userBeats = pgTable("user_beats", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  genre: text("genre").notNull(),
+  bpm: text("bpm").notNull(),
+  audioUrl: text("audio_url").notNull(),
+  coverImage: text("cover_image"),
+  duration: text("duration"),
+  description: text("description"),
+  isPublic: boolean("is_public").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertUserBeatSchema = createInsertSchema(userBeats).pick({
+  userId: true,
+  name: true,
+  genre: true,
+  bpm: true,
+  audioUrl: true, 
+  coverImage: true,
+  duration: true,
+  description: true,
+  isPublic: true,
+});
+
+export type InsertUserBeat = z.infer<typeof insertUserBeatSchema>;
+export type UserBeat = typeof userBeats.$inferSelect;
+
+// User-generated avatar schema
+export const userAvatars = pgTable("user_avatars", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+  style: text("style").notNull(),
+  previewUrl: text("preview_url").notNull(),
+  previewImage: text("preview_image"),
+  features: text("features").array(),
+  isPublic: boolean("is_public").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertUserAvatarSchema = createInsertSchema(userAvatars).pick({
+  userId: true,
+  name: true,
+  type: true,
+  style: true,
+  previewUrl: true,
+  previewImage: true,
+  features: true,
+  isPublic: true,
+});
+
+export type InsertUserAvatar = z.infer<typeof insertUserAvatarSchema>;
+export type UserAvatar = typeof userAvatars.$inferSelect;
+
+// User-generated voice samples schema
+export const userVoiceSamples = pgTable("user_voice_samples", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  sampleUrl: text("sample_url").notNull(),
+  coverImage: text("cover_image"),
+  duration: text("duration"),
+  style: text("style"),
+  features: text("features").array(),
+  isPublic: boolean("is_public").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertUserVoiceSampleSchema = createInsertSchema(userVoiceSamples).pick({
+  userId: true,
+  name: true,
+  sampleUrl: true,
+  coverImage: true,
+  duration: true,
+  style: true,
+  features: true,
+  isPublic: true,
+});
+
+export type InsertUserVoiceSample = z.infer<typeof insertUserVoiceSampleSchema>;
+export type UserVoiceSample = typeof userVoiceSamples.$inferSelect;
