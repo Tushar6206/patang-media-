@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { audioPlayer, digitalAvatars, downloadAudio } from "@/lib/audio";
 
 interface TwinSyncSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -20,7 +22,48 @@ const TwinSyncSection: React.FC<TwinSyncSectionProps> = ({ onNavigate }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [hasAvatar, setHasAvatar] = useState(false);
+  const [generatedAvatarId, setGeneratedAvatarId] = useState<number | null>(null);
   const { toast } = useToast();
+  
+  // Avatar handling functions
+  const handlePlayAvatarPreview = (id: number) => {
+    audioPlayer.play(id, 'avatar');
+  };
+  
+  const handleDownloadAvatar = (id: number) => {
+    const avatar = digitalAvatars.find(a => a.id === id);
+    if (avatar) {
+      downloadAudio(avatar.previewUrl, `${avatar.name.toLowerCase().replace(/\s+/g, '-')}-preview.mp3`)
+        .then(() => {
+          toast({
+            title: "Download Started",
+            description: `${avatar.name} preview is downloading to your device.`,
+          });
+        })
+        .catch(error => {
+          toast({
+            title: "Download Failed",
+            description: "There was an error downloading the avatar preview.",
+            variant: "destructive"
+          });
+        });
+    }
+  };
+  
+  const handleExportAvatar = (id: number) => {
+    toast({
+      title: "Avatar Export Initiated",
+      description: "Your avatar is being prepared for download. This may take a few moments.",
+    });
+    
+    // Simulate export process
+    setTimeout(() => {
+      toast({
+        title: "Avatar Ready",
+        description: "Your avatar has been exported and is ready to use.",
+      });
+    }, 2000);
+  };
   
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,6 +88,7 @@ const TwinSyncSection: React.FC<TwinSyncSectionProps> = ({ onNavigate }) => {
     // Simulate generation process
     setTimeout(() => {
       setIsGenerating(false);
+      setGeneratedAvatarId(1); // Set to first avatar for demo
       toast({
         title: "Avatar Created",
         description: "Your digital twin is ready to perform!",
@@ -216,6 +260,112 @@ const TwinSyncSection: React.FC<TwinSyncSectionProps> = ({ onNavigate }) => {
                           <p className="text-white font-medium">Your Digital Twin</p>
                           <p className="text-sm text-gray-400">Ready for performances</p>
                         </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Generated Avatars Library */}
+                  {(generatedAvatarId || true) && (
+                    <div className="mt-8 space-y-6">
+                      <h3 className="text-lg font-sora font-medium text-white">Your Digital Avatars</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {digitalAvatars.map((avatar) => (
+                          <div 
+                            key={avatar.id}
+                            className={`bg-[#0A0A14] rounded-lg overflow-hidden border ${
+                              avatar.id === generatedAvatarId ? 'border-[#FF5722]' : 'border-[#1A1A2E]'
+                            } hover:border-[#FF5722]/70 transition-all`}
+                          >
+                            <div className="p-4">
+                              <div className="flex items-start space-x-4">
+                                <div className="w-24 h-24 rounded-lg overflow-hidden relative flex-shrink-0">
+                                  <img 
+                                    src={avatar.previewImage} 
+                                    alt={avatar.name} 
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent"></div>
+                                  <button 
+                                    className={`absolute inset-0 flex items-center justify-center ${
+                                      audioPlayer.isPlaying(avatar.id, 'avatar') ? 'bg-black/40' : 'bg-black/20 opacity-0 hover:opacity-100'
+                                    } transition-opacity`}
+                                    onClick={() => handlePlayAvatarPreview(avatar.id)}
+                                  >
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                                      audioPlayer.isPlaying(avatar.id, 'avatar') ? 'bg-[#FF5722]' : 'bg-white'
+                                    }`}>
+                                      <i className={`fas ${audioPlayer.isPlaying(avatar.id, 'avatar') ? 'fa-pause' : 'fa-play'} ${
+                                        audioPlayer.isPlaying(avatar.id, 'avatar') ? 'text-white' : 'text-[#0A0A14]'
+                                      }`}></i>
+                                    </div>
+                                  </button>
+                                </div>
+                                <div className="flex-1">
+                                  <div className="flex items-center justify-between">
+                                    <h4 className="text-white font-medium">{avatar.name}</h4>
+                                    <Badge className={`${
+                                      avatar.isGenerated ? 'bg-gradient-to-r from-[#FF5722] to-[#4CAF50] text-white' : 'bg-[#FF5722]/20 text-[#FF5722]'
+                                    }`}>
+                                      {avatar.isGenerated ? 'Generated' : 'Template'}
+                                    </Badge>
+                                  </div>
+                                  <div className="flex items-center text-xs text-gray-400 mt-1">
+                                    <span>{avatar.type}</span>
+                                    <span className="mx-2">•</span>
+                                    <span>{avatar.style}</span>
+                                  </div>
+                                  <div className="mt-3 flex flex-wrap gap-2">
+                                    {avatar.features.slice(0, 2).map((feature, idx) => (
+                                      <Badge key={idx} variant="outline" className="text-xs bg-[#0A0A14] border-[#FF5722]/30">
+                                        {feature}
+                                      </Badge>
+                                    ))}
+                                    {avatar.features.length > 2 && (
+                                      <Badge variant="outline" className="text-xs bg-[#0A0A14] border-[#FF5722]/30">
+                                        +{avatar.features.length - 2} more
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-end space-x-2 mt-4">
+                                <TooltipProvider>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button 
+                                        variant="outline" 
+                                        size="sm"
+                                        className="h-8 w-8 p-0 rounded-full border-[#FF5722]/30 hover:bg-[#FF5722]/10 hover:border-[#FF5722]"
+                                        onClick={() => handleDownloadAvatar(avatar.id)}
+                                      >
+                                        <i className="fas fa-download"></i>
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>Download Voice Sample</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                                <TooltipProvider>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button 
+                                        size="sm"
+                                        className="h-8 px-3 rounded-full bg-gradient-to-r from-[#FF5722] to-[#4CAF50] text-white"
+                                        onClick={() => handleExportAvatar(avatar.id)}
+                                      >
+                                        <i className="fas fa-file-export mr-1"></i> Export
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>Export for Video Creation</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}

@@ -289,6 +289,93 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
                       />
                     </div>
                     
+                    {/* Generated beats library */}
+                    {(generatedBeatId || true) && (
+                      <div className="mt-8">
+                        <h3 className="text-lg font-sora font-medium text-white mb-4">Your Generated Beats</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {generatedBeats.map((beat) => (
+                            <div 
+                              key={beat.id} 
+                              className={`bg-[#0A0A14] rounded-lg overflow-hidden border ${
+                                beat.id === generatedBeatId ? 'border-[#8E24AA]' : 'border-[#1A1A2E]'
+                              } hover:border-[#8E24AA]/70 transition-all`}
+                            >
+                              <div className="flex h-24 md:h-32">
+                                <div className="w-24 md:w-32 flex-shrink-0 relative overflow-hidden">
+                                  <img 
+                                    src={beat.coverImage} 
+                                    alt={beat.name} 
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent"></div>
+                                  <button 
+                                    className={`absolute inset-0 flex items-center justify-center ${
+                                      audioPlayer.isPlaying(beat.id, 'beat') ? 'bg-black/40' : 'bg-black/20 opacity-0 hover:opacity-100'
+                                    } transition-opacity`}
+                                    onClick={() => handlePlayBeat(beat.id)}
+                                  >
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                                      audioPlayer.isPlaying(beat.id, 'beat') ? 'bg-[#8E24AA]' : 'bg-white'
+                                    }`}>
+                                      <i className={`fas ${audioPlayer.isPlaying(beat.id, 'beat') ? 'fa-pause' : 'fa-play'} ${
+                                        audioPlayer.isPlaying(beat.id, 'beat') ? 'text-white' : 'text-[#0A0A14]'
+                                      }`}></i>
+                                    </div>
+                                  </button>
+                                </div>
+                                <div className="flex-1 p-3 flex flex-col justify-between">
+                                  <div>
+                                    <div className="flex items-center justify-between">
+                                      <h4 className="text-white font-medium">{beat.name}</h4>
+                                      <Badge className={`${
+                                        beat.quality === 'ultra' 
+                                          ? 'bg-gradient-to-r from-[#8E24AA] to-[#00BCD4] text-white' 
+                                          : beat.quality === 'premium' 
+                                            ? 'bg-[#8E24AA]/20 text-[#8E24AA]' 
+                                            : 'bg-gray-700/50 text-gray-300'
+                                      }`}>
+                                        {beat.quality.charAt(0).toUpperCase() + beat.quality.slice(1)}
+                                      </Badge>
+                                    </div>
+                                    <div className="flex items-center text-xs text-gray-400 mt-1 space-x-2">
+                                      <span>{beat.genre}</span>
+                                      <span>•</span>
+                                      <span>{beat.bpm}</span>
+                                      <span>•</span>
+                                      <span>{beat.duration}</span>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center justify-between mt-2">
+                                    <div className="text-xs text-gray-500">
+                                      Generated {beat.dateGenerated}
+                                    </div>
+                                    <TooltipProvider>
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <Button 
+                                            variant="ghost" 
+                                            size="sm"
+                                            className="h-8 w-8 p-0 rounded-full hover:bg-[#8E24AA]/10 hover:text-[#8E24AA]"
+                                            onClick={() => handleDownloadBeat(beat.id)}
+                                          >
+                                            <i className="fas fa-download"></i>
+                                          </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          <p>Download Beat</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    </TooltipProvider>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
                     <div className="bg-[#0A0A14] rounded-lg p-6">
                       <h3 className="text-lg font-sora font-medium text-white mb-4">Beat Visualization</h3>
                       <div className="h-24 flex items-center justify-center">
@@ -348,20 +435,163 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between">
+                <CardFooter className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4">
                   <Button variant="outline" className="border-gray-600 text-gray-400">
                     Reset
                   </Button>
-                  <Button 
-                    onClick={handleGenerate}
-                    disabled={isGenerating}
-                    className={`bg-gradient-to-r from-[#8E24AA] to-[#00BCD4] hover:opacity-90 ${
-                      isGenerating ? "animate-pulse" : ""
-                    }`}
-                  >
-                    {isGenerating ? "Generating..." : "Generate Beat"}
-                  </Button>
+                  
+                  <div className="flex space-x-2">
+                    <Button 
+                      variant="outline"
+                      className="bg-[#0A0A14] border-[#8E24AA]/50 text-[#8E24AA] hover:bg-[#8E24AA]/10"
+                      onClick={() => setShowGenerator(true)}
+                    >
+                      <i className="fas fa-bolt mr-2"></i> Quick Create
+                    </Button>
+                    
+                    <Button 
+                      onClick={handleGenerate}
+                      disabled={isGenerating}
+                      className={`bg-gradient-to-r from-[#8E24AA] to-[#00BCD4] hover:opacity-90 ${
+                        isGenerating ? "animate-pulse" : ""
+                      }`}
+                    >
+                      {isGenerating ? (
+                        <>
+                          <span className="mr-2">Generating</span>
+                          <span className="flex gap-1">
+                            <span className="animate-bounce">.</span>
+                            <span className="animate-bounce animation-delay-200">.</span>
+                            <span className="animate-bounce animation-delay-400">.</span>
+                          </span>
+                        </>
+                      ) : (
+                        "Generate Beat"
+                      )}
+                    </Button>
+                  </div>
                 </CardFooter>
+                
+                {/* AI Beat Generator Dialog (similar to Suno.AI) */}
+                {showGenerator && (
+                  <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-[#0A0A14] rounded-lg border border-[#8E24AA]/30 max-w-3xl w-full max-h-[90vh] overflow-auto"
+                    >
+                      <div className="p-6 border-b border-[#8E24AA]/20">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-xl font-orbitron text-white">BeatDrop™ AI Generator</h3>
+                          <Button 
+                            variant="ghost" 
+                            className="h-8 w-8 p-0 rounded-full" 
+                            onClick={() => setShowGenerator(false)}
+                          >
+                            <i className="fas fa-times"></i>
+                          </Button>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6 space-y-6">
+                        <div>
+                          <h4 className="text-lg font-medium mb-2">Create with AI</h4>
+                          <p className="text-sm text-gray-400 mb-4">
+                            Describe the beat you want to create or select a template
+                          </p>
+                          
+                          <div className="space-y-4">
+                            <div className="relative">
+                              <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Describe your beat (e.g., 'An energetic trap beat with 808s and melodic elements')"
+                                className="w-full h-32 bg-[#1A1A2E] rounded-lg border border-[#8E24AA]/20 p-4 focus:outline-none focus:ring-2 focus:ring-[#8E24AA]/50"
+                              />
+                              <div className="absolute bottom-3 right-3 text-xs text-gray-500">
+                                {description.length}/300
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <h5 className="text-sm font-medium text-gray-300 mb-2">Or select a template:</h5>
+                              <div className="grid grid-cols-1 gap-2">
+                                {promptTemplates.map((template, index) => (
+                                  <div 
+                                    key={index}
+                                    onClick={() => setDescription(template)}
+                                    className={`p-3 rounded-lg border text-sm cursor-pointer transition-all ${
+                                      description === template 
+                                        ? "bg-[#8E24AA]/20 border-[#8E24AA]" 
+                                        : "bg-[#1A1A2E] border-[#1A1A2E] hover:bg-[#1A1A2E]/80"
+                                    }`}
+                                  >
+                                    {template}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                          <div>
+                            <h4 className="text-sm font-medium mb-2">Tempo</h4>
+                            <Slider
+                              value={sliders.tempo}
+                              onValueChange={(v) => setSliders({...sliders, tempo: v})}
+                              min={60}
+                              max={180}
+                              step={1}
+                            />
+                            <div className="flex justify-between mt-1 text-xs text-gray-500">
+                              <span>60 BPM</span>
+                              <span className="text-white">{sliders.tempo[0]} BPM</span>
+                              <span>180 BPM</span>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="text-sm font-medium mb-2">Variation</h4>
+                            <Slider
+                              value={sliders.variation}
+                              onValueChange={(v) => setSliders({...sliders, variation: v})}
+                              max={100}
+                              step={1}
+                            />
+                            <div className="flex justify-between mt-1 text-xs text-gray-500">
+                              <span>Conservative</span>
+                              <span className="text-white">{sliders.variation[0]}%</span>
+                              <span>Experimental</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6 border-t border-[#8E24AA]/20 flex justify-end">
+                        <div className="flex space-x-4">
+                          <Button 
+                            variant="outline" 
+                            className="border-gray-600 text-gray-300"
+                            onClick={() => setShowGenerator(false)}
+                          >
+                            Cancel
+                          </Button>
+                          <Button 
+                            className="bg-gradient-to-r from-[#8E24AA] to-[#00BCD4] hover:opacity-90"
+                            disabled={isGenerating || (!description && !promptTemplate)}
+                            onClick={() => {
+                              handleGenerate();
+                              setShowGenerator(false);
+                            }}
+                          >
+                            {isGenerating ? 'Processing...' : 'Create Beat'}
+                          </Button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
               </Card>
             </TabsContent>
             
