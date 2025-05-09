@@ -264,7 +264,27 @@ const VocalVerseSection: React.FC<VocalVerseSectionProps> = ({ onNavigate }) => 
                           </div>
                           
                           <div className="flex justify-between">
-                            <Button variant="outline" size="sm" className="text-xs gap-1">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs gap-1"
+                              onClick={() => {
+                                const filename = "your-voice-clone.mp3";
+                                const url = "https://cdn.pixabay.com/download/audio/2023/05/02/audio_1bc13f8b43.mp3?filename=your-my-senorita-137518.mp3";
+                                
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                                
+                                toast({
+                                  title: "Download Started",
+                                  description: `${filename} is downloading.`,
+                                });
+                              }}
+                            >
                               <i className="fas fa-download"></i> Download
                             </Button>
                             <div className="flex space-x-2">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { audioPlayer, generatedBeats, downloadAudio } from "@/lib/audio";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface BeatDropSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -16,23 +18,69 @@ interface BeatDropSectionProps {
 const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState("beats");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedBeatId, setGeneratedBeatId] = useState<number | null>(null);
+  const [showGenerator, setShowGenerator] = useState(false);
+  const [description, setDescription] = useState("");
+  const [promptTemplate, setPromptTemplate] = useState("");
   const [sliders, setSliders] = useState({
     tempo: [120],
     energy: [70],
-    complexity: [50]
+    complexity: [50],
+    variation: [30]
   });
   
   const { toast } = useToast();
+  const promptTemplates = [
+    "An energetic EDM track with heavy bass drops and futuristic synths",
+    "A chill lo-fi hip hop beat with jazzy piano samples and vinyl crackles",
+    "A melodic house track with uplifting chords and memorable hooks",
+    "A dark trap beat with haunting melodies and hard-hitting 808s",
+    "A synthwave track with retro arpeggios and dreamy pads"
+  ];
+  
+  const handlePlayBeat = (id: number) => {
+    audioPlayer.play(id, 'beat');
+  };
+  
+  const handleDownloadBeat = (id: number) => {
+    const beat = generatedBeats.find(b => b.id === id);
+    if (beat) {
+      downloadAudio(beat.audioUrl, `${beat.name.toLowerCase().replace(/\s+/g, '-')}.mp3`)
+        .then(() => {
+          toast({
+            title: "Download Started",
+            description: `${beat.name} is downloading to your device.`,
+          });
+        })
+        .catch(error => {
+          toast({
+            title: "Download Failed",
+            description: "There was an error downloading the beat.",
+            variant: "destructive"
+          });
+        });
+    }
+  };
   
   const handleGenerate = () => {
+    if (!description && !promptTemplate) {
+      toast({
+        title: "Input Required",
+        description: "Please enter a description or select a template for your beat.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsGenerating(true);
     
     // Simulate generation process
     setTimeout(() => {
       setIsGenerating(false);
+      setGeneratedBeatId(Math.floor(Math.random() * generatedBeats.length) + 1);
       toast({
         title: "Beat Generated",
-        description: "Your custom beat is ready to be played and exported!",
+        description: "Your custom beat is ready to play and download!",
       });
     }, 3000);
   };
