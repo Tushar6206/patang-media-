@@ -70,7 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast({
         title: "Login successful",
         description: `Welcome back, ${userData?.username || "User"}!`,
-        variant: "success",
       });
       
       // Trigger login event that could be used for analytics or session tracking
@@ -114,7 +113,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast({
         title: "Registration successful",
         description: `Welcome to Patang Omniverse, ${data.user.username}!`,
-        variant: "success",
       });
       
       // Trigger a welcome event that could be used for analytics
