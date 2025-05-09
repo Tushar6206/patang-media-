@@ -4,10 +4,14 @@ import { storage } from "./storage";
 import { contactSchema, newsletterSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { setupAuth } from "./auth";
+import { registerAgentRoutes } from "./claude";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Set up authentication
   setupAuth(app);
+  
+  // Register AI agent routes
+  registerAgentRoutes(app);
   
   // Using HTML file for investor brief instead of PDF
   console.log('Using static HTML file for investor brief');
