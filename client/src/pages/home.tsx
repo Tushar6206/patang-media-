@@ -10,6 +10,7 @@ import ContactSection from "@/components/contact-section";
 import VocalVerseSection from "@/components/vocal-verse-section";
 import BeatDropSection from "@/components/beat-drop-section";
 import TwinSyncSection from "@/components/twin-sync-section";
+import RhythmRouletteSection from "@/components/rhythm-roulette-section";
 import FeaturedAnthemsSection from "@/components/featured-anthems-section";
 import GenreRecommenderSection from "@/components/genre-recommender-section";
 import Footer from "@/components/footer";
@@ -43,6 +44,7 @@ const Home: React.FC = () => {
         <VocalVerseSection onNavigate={handleNavigation} />
         <BeatDropSection onNavigate={handleNavigation} />
         <TwinSyncSection onNavigate={handleNavigation} />
+        <RhythmRouletteSection onNavigate={handleNavigation} />
         <MusicLabSection />
         <FeaturedAnthemsSection />
         <GenreRecommenderSection onNavigate={handleNavigation} />

@@ -47,6 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
     { id: "vocalverse", label: "VocalVerse™" },
     { id: "beatdrop", label: "BeatDrop™" },
     { id: "twinsync", label: "TwinSync™" },
+    { id: "rhythm-roulette", label: "Rhythm Roulette™" },
   ];
   
   const additionalNavItems = [
