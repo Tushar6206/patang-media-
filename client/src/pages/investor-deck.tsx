@@ -303,9 +303,80 @@ const InvestorDeck: React.FC = () => {
             <TabsContent value="roadmap">
               <Card className="bg-[#1A1A2E]/80 border-[#2979FF]/20">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-orbitron">Product Roadmap</CardTitle>
+                  <CardTitle className="text-2xl font-orbitron">Product Roadmap & Strategic Partnerships</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-8">
+                  <div className="mb-12">
+                    <h3 className="text-xl font-medium mb-6">Key Strategic Partnerships</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="bg-[#0A0A14] p-6 rounded-lg border border-[#2979FF]/20 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-[#2979FF]/10 text-[#2979FF] text-xs px-3 py-1 rounded-bl-lg">Confirmed</div>
+                        <h4 className="text-lg font-medium text-white mb-2">Global Entertainment Conglomerate</h4>
+                        <p className="text-gray-300 text-sm mb-4">
+                          Multi-year licensing agreement for Patang's AI voice synthesis technology across the conglomerate's animation and gaming divisions.
+                        </p>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Deal Value:</span>
+                            <span className="text-[#2979FF]">$8.5M annually</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Timeline:</span>
+                            <span className="text-white">Q2 2024 - Q2 2027</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Status:</span>
+                            <span className="text-green-400">Signed LOI</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-[#0A0A14] p-6 rounded-lg border border-[#FF2E63]/20 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-[#FF2E63]/10 text-[#FF2E63] text-xs px-3 py-1 rounded-bl-lg">Advanced Talks</div>
+                        <h4 className="text-lg font-medium text-white mb-2">Fortune 100 Tech Company</h4>
+                        <p className="text-gray-300 text-sm mb-4">
+                          Co-development of neural music generation platform with integration into the partner's existing content creation ecosystem.
+                        </p>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Deal Value:</span>
+                            <span className="text-[#FF2E63]">$15M + Revenue Share</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Timeline:</span>
+                            <span className="text-white">Q3 2024 - Open-ended</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Status:</span>
+                            <span className="text-yellow-400">Term Sheet Stage</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-[#0A0A14] p-6 rounded-lg border border-[#08FDD8]/20 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-[#08FDD8]/10 text-[#08FDD8] text-xs px-3 py-1 rounded-bl-lg">Strategic</div>
+                        <h4 className="text-lg font-medium text-white mb-2">Leading Academic Research Institute</h4>
+                        <p className="text-gray-300 text-sm mb-4">
+                          Exclusive access to cutting-edge AI research and talent pipeline, with first-rights to commercialize emerging technologies.
+                        </p>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Deal Value:</span>
+                            <span className="text-[#08FDD8]">$4.2M research grant</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Timeline:</span>
+                            <span className="text-white">Q1 2024 - Q1 2029</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Status:</span>
+                            <span className="text-blue-400">Final Negotiations</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="relative">
                     <div className="absolute top-0 bottom-0 left-16 md:left-24 w-0.5 bg-gradient-to-b from-[#2979FF] to-[#4CAF50]/50"></div>
                     

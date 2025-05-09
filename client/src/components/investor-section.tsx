@@ -387,6 +387,393 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
             </div>
           </div>
         </motion.div>
+        
+        {/* Investment Timeline */}
+        <motion.div
+          className="mb-16 bg-[#1E1E1E] rounded-2xl p-8 border border-[#2979FF]/20 shadow-lg"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-orbitron font-bold mb-2">Strategic Deployment Timeline</h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Our capital deployment strategy follows a precise timeline to maximize impact and accelerate growth trajectories.
+            </p>
+          </div>
+          
+          <div className="relative py-6">
+            {/* Timeline Bar */}
+            <div className="absolute top-0 bottom-0 left-[50%] w-1 bg-gradient-to-b from-[#2979FF] via-[#FF2E63] to-[#08FDD8]"></div>
+            
+            {/* Q1: Initial Deployment */}
+            <div className="grid grid-cols-1 md:grid-cols-5 mb-12 relative">
+              <div className="md:col-span-2 text-right pr-8 md:pr-12 pb-8 md:pb-0">
+                <h4 className="text-lg font-medium text-white mb-2">Q1: Initial Deployment <span className="text-[#2979FF]">$7.5M</span></h4>
+                <p className="text-gray-400 text-sm">
+                  Immediate infrastructure scaling, key talent acquisition, and proprietary LLM research initiation.
+                </p>
+                <div className="mt-3 flex flex-wrap justify-end gap-2">
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#2979FF]/10 text-[#2979FF]">Cloud Infrastructure</span>
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#FF2E63]/10 text-[#FF2E63]">Senior AI Hires</span>
+                </div>
+              </div>
+              
+              <div className="absolute left-[50%] top-0 w-4 h-4 rounded-full bg-[#2979FF] transform -translate-x-1/2"></div>
+              
+              <div className="md:col-span-2 pl-8 md:pl-12 md:col-start-4">
+                <div className="bg-[#0A0A14] p-4 rounded-lg border border-[#2979FF]/20">
+                  <div className="font-medium text-white mb-2">Key Milestones</div>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#2979FF] mt-1"></i>
+                      <span>Launch global cloud infrastructure on 3 continents</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#2979FF] mt-1"></i>
+                      <span>Hire 5 ML/AI researchers from leading tech companies</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#2979FF] mt-1"></i>
+                      <span>Establish initial proprietary LLM research lab</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            {/* Q2-Q3: Scaling Phase */}
+            <div className="grid grid-cols-1 md:grid-cols-5 mb-12 relative">
+              <div className="md:col-span-2 text-right pr-8 md:pr-12 pb-8 md:pb-0 order-1 md:order-1">
+                <div className="bg-[#0A0A14] p-4 rounded-lg border border-[#FF2E63]/20">
+                  <div className="font-medium text-white mb-2">Key Milestones</div>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li className="flex items-start gap-2 justify-end">
+                      <span>Finalize IP protection for core AI technologies</span>
+                      <i className="fas fa-check-circle text-[#FF2E63] mt-1"></i>
+                    </li>
+                    <li className="flex items-start gap-2 justify-end">
+                      <span>Expand sales teams in North America, Europe, and Asia</span>
+                      <i className="fas fa-check-circle text-[#FF2E63] mt-1"></i>
+                    </li>
+                    <li className="flex items-start gap-2 justify-end">
+                      <span>Launch beta version of proprietary content generation platform</span>
+                      <i className="fas fa-check-circle text-[#FF2E63] mt-1"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="absolute left-[50%] top-0 w-4 h-4 rounded-full bg-[#FF2E63] transform -translate-x-1/2"></div>
+              
+              <div className="md:col-span-2 pl-8 md:pl-12 md:col-start-4 order-0 md:order-2">
+                <h4 className="text-lg font-medium text-white mb-2">Q2-Q3: Scaling Phase <span className="text-[#FF2E63]">$12M</span></h4>
+                <p className="text-gray-400 text-sm">
+                  Aggressive expansion of technical capabilities, global sales team build-out, and strategic partnership development.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#FF2E63]/10 text-[#FF2E63]">IP Development</span>
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#FF2E63]/10 text-[#FF2E63]">Global Sales</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Q4-Y2: Market Dominance */}
+            <div className="grid grid-cols-1 md:grid-cols-5 relative">
+              <div className="md:col-span-2 text-right pr-8 md:pr-12 pb-8 md:pb-0">
+                <h4 className="text-lg font-medium text-white mb-2">Q4-Y2: Market Dominance <span className="text-[#08FDD8]">$10.5M</span></h4>
+                <p className="text-gray-400 text-sm">
+                  Launch of flagship AI technologies, international expansion, and strategic acquisitions to consolidate market position.
+                </p>
+                <div className="mt-3 flex flex-wrap justify-end gap-2">
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#08FDD8]/10 text-[#08FDD8]">Full LLM Launch</span>
+                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-[#08FDD8]/10 text-[#08FDD8]">Strategic Acquisitions</span>
+                </div>
+              </div>
+              
+              <div className="absolute left-[50%] top-0 w-4 h-4 rounded-full bg-[#08FDD8] transform -translate-x-1/2"></div>
+              
+              <div className="md:col-span-2 pl-8 md:pl-12 md:col-start-4">
+                <div className="bg-[#0A0A14] p-4 rounded-lg border border-[#08FDD8]/20">
+                  <div className="font-medium text-white mb-2">Key Milestones</div>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#08FDD8] mt-1"></i>
+                      <span>Full commercial launch of proprietary LLM platform</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#08FDD8] mt-1"></i>
+                      <span>Strategic acquisition of 2-3 complementary AI startups</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <i className="fas fa-check-circle text-[#08FDD8] mt-1"></i>
+                      <span>Major partnerships with entertainment conglomerates</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        
+        {/* Competitive Analysis and Market Position */}
+        <motion.div
+          className="mb-16 bg-[#1E1E1E] rounded-2xl p-8 border border-[#2979FF]/20 shadow-lg"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-orbitron font-bold mb-2">Competitive Landscape Analysis</h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Patang Omniverse's multi-dimensional advantage in the rapidly evolving AI entertainment space.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div className="bg-[#0A0A14] p-6 rounded-xl border border-[#2979FF]/20">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-orbitron font-medium">Traditional Media</h4>
+                <span className="bg-[#2979FF]/10 text-[#2979FF] text-xs px-2 py-1 rounded-full">Legacy Players</span>
+              </div>
+              
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">High production costs and lengthy timelines</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Limited AI integration and technical expertise</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Slow adaptation to changing consumer preferences</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Strong existing distribution networks</span>
+                </li>
+              </ul>
+              
+              <p className="text-xs text-gray-400">
+                <span className="font-medium text-white">Key Players:</span> Disney, Warner Bros, Universal, Sony
+              </p>
+            </div>
+            
+            <div className="bg-[#0A0A14] p-6 rounded-xl border border-[#FF2E63]/20">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-orbitron font-medium">AI Startups</h4>
+                <span className="bg-[#FF2E63]/10 text-[#FF2E63] text-xs px-2 py-1 rounded-full">Emerging Innovation</span>
+              </div>
+              
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Technical innovation in specific AI domains</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Limited entertainment industry experience</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Narrow focus on single technology/product</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-times text-[#FF2E63] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Struggling to achieve mainstream adoption</span>
+                </li>
+              </ul>
+              
+              <p className="text-xs text-gray-400">
+                <span className="font-medium text-white">Key Players:</span> RunwayML, Synthesia, Descript, Replica
+              </p>
+            </div>
+            
+            <div className="bg-[#0A0A14] p-6 rounded-xl border border-[#08FDD8]/20">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-orbitron font-medium">Patang Omniverse</h4>
+                <span className="bg-[#08FDD8]/10 text-[#08FDD8] text-xs px-2 py-1 rounded-full">Category Leader</span>
+              </div>
+              
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Comprehensive suite of AI entertainment solutions</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Proprietary LLM specifically trained for creative content</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Industry expertise + cutting-edge technology</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fas fa-check text-[#08FDD8] mt-1"></i>
+                  <span className="text-gray-300 text-sm">Proven commercial partnerships with global brands</span>
+                </li>
+              </ul>
+              
+              <p className="text-xs text-gray-400">
+                <span className="font-medium text-[#08FDD8]">Competitive Edge:</span> Only full-stack AI entertainment platform with proven enterprise adoption
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-[#0A0A14] p-6 rounded-xl">
+            <h4 className="text-lg font-orbitron font-bold mb-4">Strategic Market Position</h4>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h5 className="font-medium text-white mb-3">Entertainment Industry Disruption</h5>
+                <p className="text-sm text-gray-300 mb-4">
+                  Patang Omniverse is positioned at the intersection of AI technology and entertainment, enabling a 10x 
+                  reduction in content production costs while dramatically increasing creative output quality and quantity.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-[#2979FF]/10 text-[#2979FF] text-xs px-2 py-1 rounded-full">10x Cost Reduction</span>
+                  <span className="bg-[#2979FF]/10 text-[#2979FF] text-xs px-2 py-1 rounded-full">100x Production Speed</span>
+                  <span className="bg-[#2979FF]/10 text-[#2979FF] text-xs px-2 py-1 rounded-full">Infinite Personalization</span>
+                </div>
+              </div>
+              
+              <div>
+                <h5 className="font-medium text-white mb-3">Exclusive Strategic Advantage</h5>
+                <p className="text-sm text-gray-300 mb-4">
+                  Our proprietary dataset of over 8 million labeled creative assets provides an insurmountable competitive 
+                  moat that competitors cannot easily replicate, ensuring long-term market leadership.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-[#FF2E63]/10 text-[#FF2E63] text-xs px-2 py-1 rounded-full">Proprietary Datasets</span>
+                  <span className="bg-[#FF2E63]/10 text-[#FF2E63] text-xs px-2 py-1 rounded-full">Patent-Protected</span>
+                  <span className="bg-[#FF2E63]/10 text-[#FF2E63] text-xs px-2 py-1 rounded-full">5+ Year Lead</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        
+        {/* Risk Mitigation */}
+        <motion.div
+          className="mb-16 bg-[#1E1E1E] rounded-2xl p-8 border border-[#2979FF]/20 shadow-lg"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-orbitron font-bold mb-2">Risk Mitigation Strategy</h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              We've implemented comprehensive measures to address potential challenges and ensure continued growth.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-[#0A0A14] p-6 rounded-xl">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#2979FF]/20 flex items-center justify-center text-[#2979FF]">
+                  <i className="fas fa-shield-alt"></i>
+                </div>
+                <h4 className="text-lg font-medium">Technological Risks</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h5 className="text-white font-medium mb-1">AI Regulation Changes</h5>
+                  <p className="text-sm text-gray-400">
+                    Diversified technology stack across multiple jurisdictions and active involvement in policy development through our AI Ethics Board.
+                  </p>
+                </div>
+                
+                <div>
+                  <h5 className="text-white font-medium mb-1">Competitive Technology Developments</h5>
+                  <p className="text-sm text-gray-400">
+                    Continuous R&D investment (25% of revenue) and strategic acquisition pipeline of emerging technologies.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#0A0A14] p-6 rounded-xl">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#FF2E63]/20 flex items-center justify-center text-[#FF2E63]">
+                  <i className="fas fa-briefcase"></i>
+                </div>
+                <h4 className="text-lg font-medium">Market Risks</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h5 className="text-white font-medium mb-1">Changing Consumer Behavior</h5>
+                  <p className="text-sm text-gray-400">
+                    AI-powered trend analysis system updating our models weekly, allowing rapid adaptation to shifting preferences.
+                  </p>
+                </div>
+                
+                <div>
+                  <h5 className="text-white font-medium mb-1">Market Saturation</h5>
+                  <p className="text-sm text-gray-400">
+                    Diverse revenue streams across B2B, B2C, and licensing models, with no single channel exceeding 30% of total revenue.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#0A0A14] p-6 rounded-xl">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#08FDD8]/20 flex items-center justify-center text-[#08FDD8]">
+                  <i className="fas fa-users"></i>
+                </div>
+                <h4 className="text-lg font-medium">Operational Risks</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h5 className="text-white font-medium mb-1">Talent Acquisition & Retention</h5>
+                  <p className="text-sm text-gray-400">
+                    Industry-leading compensation packages with equity incentives and distributed team structure across global talent hubs.
+                  </p>
+                </div>
+                
+                <div>
+                  <h5 className="text-white font-medium mb-1">Scaling Challenges</h5>
+                  <p className="text-sm text-gray-400">
+                    Modular technology architecture and strategic partnerships with cloud providers for seamless scaling.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#0A0A14] p-6 rounded-xl">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#FFC700]/20 flex items-center justify-center text-[#FFC700]">
+                  <i className="fas fa-gavel"></i>
+                </div>
+                <h4 className="text-lg font-medium">Legal & Regulatory Risks</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h5 className="text-white font-medium mb-1">Copyright & IP Issues</h5>
+                  <p className="text-sm text-gray-400">
+                    Proprietary content filtering technology and robust licensing agreements with major rights holders.
+                  </p>
+                </div>
+                
+                <div>
+                  <h5 className="text-white font-medium mb-1">Privacy Regulations</h5>
+                  <p className="text-sm text-gray-400">
+                    Regional data processing architecture compliant with GDPR, CCPA, and emerging privacy frameworks.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Investor CTA */}
         <motion.div 
