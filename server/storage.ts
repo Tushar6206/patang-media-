@@ -162,7 +162,8 @@ export class DatabaseStorage implements IStorage {
       .from(users)
       .where(eq(users.id, userId));
     
-    return user?.generationsCount || 0;
+    // Return 0 as default if no user found or count is null
+    return (user && user.generationsCount !== null) ? user.generationsCount : 0;
   }
 
   // User beats operations

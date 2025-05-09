@@ -539,6 +539,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // Endpoint to get user's generation count - must be before /:id route
+  app.get("/api/rhythm-roulette/count", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ 
+          success: false, 
+          message: "Authentication required" 
+        });
+      }
+      
+      const userId = req.user.id;
+      const count = await storage.getRhythmRouletteGenerationCount(userId);
+      const MAX_GENERATIONS = 2;
+      
+      res.status(200).json({ 
+        success: true, 
+        count,
+        remainingGenerations: Math.max(0, MAX_GENERATIONS - count),
+        maxGenerations: MAX_GENERATIONS
+      });
+    } catch (error) {
+      console.error("Get generation count error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "An error occurred while retrieving generation count" 
+      });
+    }
+  });
 
   const httpServer = createServer(app);
 

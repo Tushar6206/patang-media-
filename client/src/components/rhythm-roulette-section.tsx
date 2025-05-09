@@ -83,28 +83,29 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
       const data = await response.json();
       return data.data || [];
     },
-    enabled: !!user,
-    onSuccess: () => {
-      // Fetch the generation count after loading compositions
-      fetchGenerationCount();
-    }
+    enabled: !!user
   });
   
   // Fetch user's generation count
-  const fetchGenerationCount = async () => {
-    if (!user) return;
-    
-    try {
-      const response = await apiRequest('GET', '/api/rhythm-roulette/generation-count');
+  const {
+    data: generationCountData,
+    refetch: refetchGenerationCount
+  } = useQuery({
+    queryKey: ['/api/rhythm-roulette/count'],
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/rhythm-roulette/count');
       const data = await response.json();
-      
-      if (data.success) {
-        setGenerationsRemaining(Math.max(0, 2 - data.count));  // Max 2 generations
-      }
-    } catch (error) {
-      console.error("Error fetching generation count:", error);
+      return data.success ? data : null;
+    },
+    enabled: !!user
+  });
+  
+  // Update generations remaining when count data changes
+  useEffect(() => {
+    if (generationCountData && generationCountData.remainingGenerations !== undefined) {
+      setGenerationsRemaining(generationCountData.remainingGenerations);
     }
-  };
+  }, [generationCountData]);
 
   // Mutation to add a track to listening history
   const addTrackMutation = useMutation({
@@ -181,6 +182,7 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
         setShowCompositionDialog(false);
       }
       refetchCompositions();
+      refetchGenerationCount(); // Refresh the generation count after deletion
     },
     onError: (error: Error) => {
       toast({
@@ -387,12 +389,27 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
                     </ScrollArea>
                   )}
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="flex flex-col gap-3">
+                  {generationsRemaining !== null && (
+                    <div className="text-sm text-center w-full">
+                      <span className="text-gray-400">Generations remaining: </span>
+                      <span className={generationsRemaining > 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>
+                        {generationsRemaining}/2
+                      </span>
+                      {generationsRemaining === 0 && (
+                        <p className="text-amber-400 text-xs mt-1">
+                          You've reached your limit. Delete a composition to generate a new one.
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
                   <Button
                     onClick={handleGenerateComposition}
                     disabled={
                       generateCompositionMutation.isPending || 
-                      listeningHistory.length === 0
+                      listeningHistory.length === 0 ||
+                      generationsRemaining === 0 // Disable when user has reached limit
                     }
                     className="w-full bg-purple-600 hover:bg-purple-700"
                   >
@@ -482,12 +499,27 @@ export default function RhythmRouletteSection({ onNavigate }: RhythmRouletteSect
                     </ScrollArea>
                   )}
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="flex flex-col gap-3">
+                  {generationsRemaining !== null && (
+                    <div className="text-sm text-center w-full">
+                      <span className="text-gray-400">Generations remaining: </span>
+                      <span className={generationsRemaining > 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>
+                        {generationsRemaining}/2
+                      </span>
+                      {generationsRemaining === 0 && (
+                        <p className="text-amber-400 text-xs mt-1">
+                          You've reached your limit. Delete a composition to generate a new one.
+                        </p>
+                      )}
+                    </div>
+                  )}
+                
                   <Button
                     onClick={handleGenerateComposition}
                     disabled={
                       generateCompositionMutation.isPending || 
-                      listeningHistory.length === 0
+                      listeningHistory.length === 0 ||
+                      generationsRemaining === 0
                     }
                     className="w-full bg-purple-600 hover:bg-purple-700"
                   >
