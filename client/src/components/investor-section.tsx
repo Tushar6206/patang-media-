@@ -805,6 +805,12 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
               href="/patang-omniverse-investor-brief.html"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                fetch('/api/investor-brief-accessed', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' }
+                }).catch(err => console.log('Failed to record access:', err));
+              }}
               className="px-8 py-4 bg-transparent border border-[#2979FF] text-[#2979FF] hover:bg-[#2979FF]/10 font-orbitron rounded-md transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

@@ -1,52 +1,20 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import path from "path";
-import fs from "fs";
 import { storage } from "./storage";
 import { contactSchema, newsletterSchema } from "@shared/schema";
 import { ZodError } from "zod";
-import generateInvestorBriefPDF from "./generate-pdf";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Generate PDF on server start
-  const pdfPath = path.join(process.cwd(), 'client', 'public', 'patang-omniverse-investor-brief.pdf');
+  // Using HTML file for investor brief instead of PDF
+  console.log('Using static HTML file for investor brief');
   
-  // Check if PDF exists, if not generate it
-  if (!fs.existsSync(pdfPath)) {
-    console.log('Investor brief PDF not found, generating...');
-    try {
-      await generateInvestorBriefPDF();
-      console.log('Investor brief PDF generated successfully');
-    } catch (error) {
-      console.error('Failed to generate investor brief PDF:', error);
-    }
-  } else {
-    console.log('Investor brief PDF already exists');
-  }
-  
-  // API endpoint to regenerate the PDF
-  app.post('/api/regenerate-pdf', async (req, res) => {
-    try {
-      const success = await generateInvestorBriefPDF();
-      if (success) {
-        res.status(200).json({ 
-          success: true, 
-          message: 'Investor brief PDF regenerated successfully',
-          downloadUrl: '/patang-omniverse-investor-brief.pdf'
-        });
-      } else {
-        res.status(500).json({ 
-          success: false, 
-          message: 'Failed to regenerate investor brief PDF'
-        });
-      }
-    } catch (error) {
-      console.error('Error regenerating PDF:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: 'An error occurred while regenerating the PDF'
-      });
-    }
+  // API endpoint for investor brief access analytics
+  app.post('/api/investor-brief-accessed', (req, res) => {
+    console.log('Investor brief accessed:', new Date().toISOString());
+    res.status(200).json({ 
+      success: true, 
+      message: 'Access recorded'
+    });
   });
   
   // Contact form submission endpoint

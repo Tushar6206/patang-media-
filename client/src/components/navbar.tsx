@@ -263,6 +263,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                     href="/patang-omniverse-investor-brief.html" 
                     target="_blank" 
                     className="font-sora text-white hover:text-[#2979FF] py-1 text-sm"
+                    onClick={(e) => {
+                      fetch('/api/investor-brief-accessed', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                      }).catch(err => console.log('Failed to record access:', err));
+                    }}
                   >
                     Download Investor Brief <i className="fas fa-file-alt ml-1 text-xs"></i>
                   </a>

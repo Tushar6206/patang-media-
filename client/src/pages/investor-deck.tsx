@@ -25,7 +25,16 @@ const InvestorDeck: React.FC = () => {
             <Button 
               variant="outline"
               className="text-[#2979FF] border-[#2979FF]/50 hover:bg-[#2979FF]/10"
-              onClick={() => window.open("/patang-omniverse-investor-brief.html", "_blank")}
+              onClick={() => {
+                // Track access
+                fetch('/api/investor-brief-accessed', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' }
+                }).catch(err => console.log('Failed to record access:', err));
+                
+                // Open the brief
+                window.open("/patang-omniverse-investor-brief.html", "_blank");
+              }}
             >
               <i className="fas fa-file-alt mr-2"></i> Download Full Brief
             </Button>
