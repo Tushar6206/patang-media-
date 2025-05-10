@@ -56,6 +56,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
   });
+  
+  // Get all contact form submissions (protected admin endpoint)
+  app.get("/api/contact-submissions", (req, res) => {
+    // Check if user is authenticated
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+    }
+    
+    // TODO: Add proper admin role check here when we implement roles
+    
+    // Retrieve all contact submissions
+    storage.getContactSubmissions()
+      .then(submissions => {
+        res.status(200).json({
+          success: true,
+          data: submissions
+        });
+      })
+      .catch(error => {
+        console.error("Error retrieving contact submissions:", error);
+        res.status(500).json({
+          success: false,
+          message: "An error occurred while retrieving contact submissions"
+        });
+      });
+  });
 
   // Newsletter signup endpoint
   app.post("/api/newsletter", async (req, res) => {
@@ -567,6 +596,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "An error occurred while retrieving generation count" 
       });
     }
+  });
+  
+  // Get all newsletter signups (protected admin endpoint)
+  app.get("/api/newsletter-signups", (req, res) => {
+    // Check if user is authenticated
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+    }
+    
+    // TODO: Add proper admin role check here when we implement roles
+    
+    // Retrieve all newsletter signups
+    storage.getNewsletterSignups()
+      .then(signups => {
+        res.status(200).json({
+          success: true,
+          data: signups
+        });
+      })
+      .catch(error => {
+        console.error("Error retrieving newsletter signups:", error);
+        res.status(500).json({
+          success: false,
+          message: "An error occurred while retrieving newsletter signups"
+        });
+      });
   });
 
   const httpServer = createServer(app);

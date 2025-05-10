@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import InvestorDeck from "@/pages/investor-deck";
 import AuthPage from "@/pages/auth-page";
 import ProfilePage from "@/pages/profile-page";
+import AdminPage from "@/pages/admin-page";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 
