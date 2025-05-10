@@ -19,6 +19,7 @@ function Router() {
       <Route path="/investor-deck" component={InvestorDeck} />
       <Route path="/auth" component={AuthPage} />
       <ProtectedRoute path="/profile" component={ProfilePage} />
+      <ProtectedRoute path="/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
   );
