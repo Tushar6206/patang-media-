@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A14;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#121232;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGradient)" />
+  
+  <!-- Grid pattern -->
+  <g stroke="#FFFFFF" stroke-opacity="0.03">
+    <!-- Horizontal lines -->
+    <line x1="0" y1="100" x2="1600" y2="100" />
+    <line x1="0" y1="200" x2="1600" y2="200" />
+    <line x1="0" y1="300" x2="1600" y2="300" />
+    <line x1="0" y1="400" x2="1600" y2="400" />
+    <line x1="0" y1="500" x2="1600" y2="500" />
+    <line x1="0" y1="600" x2="1600" y2="600" />
+    <line x1="0" y1="700" x2="1600" y2="700" />
+    <line x1="0" y1="800" x2="1600" y2="800" />
+    
+    <!-- Vertical lines -->
+    <line x1="100" y1="0" x2="100" y2="900" />
+    <line x1="200" y1="0" x2="200" y2="900" />
+    <line x1="300" y1="0" x2="300" y2="900" />
+    <line x1="400" y1="0" x2="400" y2="900" />
+    <line x1="500" y1="0" x2="500" y2="900" />
+    <line x1="600" y1="0" x2="600" y2="900" />
+    <line x1="700" y1="0" x2="700" y2="900" />
+    <line x1="800" y1="0" x2="800" y2="900" />
+    <line x1="900" y1="0" x2="900" y2="900" />
+    <line x1="1000" y1="0" x2="1000" y2="900" />
+    <line x1="1100" y1="0" x2="1100" y2="900" />
+    <line x1="1200" y1="0" x2="1200" y2="900" />
+    <line x1="1300" y1="0" x2="1300" y2="900" />
+    <line x1="1400" y1="0" x2="1400" y2="900" />
+    <line x1="1500" y1="0" x2="1500" y2="900" />
+  </g>
+  
+  <!-- Wave pattern 1 -->
+  <path d="M0,450 
+           C100,400 200,380 300,420 
+           S400,500 500,480 
+           S600,420 700,440 
+           S800,500 900,460 
+           S1000,380 1100,420 
+           S1200,500 1300,470 
+           S1400,400 1500,420 
+           S1600,480 1600,450" 
+        fill="none" stroke="#2979FF" stroke-width="2" stroke-opacity="0.2" />
+  
+  <!-- Wave pattern 2 -->
+  <path d="M0,470 
+           C100,430 200,450 300,480 
+           S400,440 500,420 
+           S600,480 700,460 
+           S800,410 900,430 
+           S1000,480 1100,450 
+           S1200,410 1300,440 
+           S1400,490 1500,460 
+           S1600,420 1600,430" 
+        fill="none" stroke="#8E24AA" stroke-width="2" stroke-opacity="0.2" />
+  
+  <!-- Wave pattern 3 -->
+  <path d="M0,430 
+           C100,470 200,450 300,410 
+           S400,380 500,420 
+           S600,470 700,440 
+           S800,390 900,410 
+           S1000,470 1100,430 
+           S1200,390 1300,420 
+           S1400,460 1500,430 
+           S1600,390 1600,410" 
+        fill="none" stroke="#FF5722" stroke-width="2" stroke-opacity="0.2" />
+  
+  <!-- Frequency lines -->
+  <g stroke="#FFFFFF" stroke-opacity="0.1">
+    <!-- Top half frequency dots -->
+    <line x1="100" y1="430" x2="100" y2="100" stroke-dasharray="1,8" />
+    <line x1="300" y1="410" x2="300" y2="100" stroke-dasharray="1,8" />
+    <line x1="500" y1="420" x2="500" y2="100" stroke-dasharray="1,8" />
+    <line x1="700" y1="440" x2="700" y2="100" stroke-dasharray="1,8" />
+    <line x1="900" y1="410" x2="900" y2="100" stroke-dasharray="1,8" />
+    <line x1="1100" y1="430" x2="1100" y2="100" stroke-dasharray="1,8" />
+    <line x1="1300" y1="420" x2="1300" y2="100" stroke-dasharray="1,8" />
+    <line x1="1500" y1="430" x2="1500" y2="100" stroke-dasharray="1,8" />
+    
+    <!-- Bottom half frequency dots -->
+    <line x1="100" y1="430" x2="100" y2="800" stroke-dasharray="1,8" />
+    <line x1="300" y1="410" x2="300" y2="800" stroke-dasharray="1,8" />
+    <line x1="500" y1="420" x2="500" y2="800" stroke-dasharray="1,8" />
+    <line x1="700" y1="440" x2="700" y2="800" stroke-dasharray="1,8" />
+    <line x1="900" y1="410" x2="900" y2="800" stroke-dasharray="1,8" />
+    <line x1="1100" y1="430" x2="1100" y2="800" stroke-dasharray="1,8" />
+    <line x1="1300" y1="420" x2="1300" y2="800" stroke-dasharray="1,8" />
+    <line x1="1500" y1="430" x2="1500" y2="800" stroke-dasharray="1,8" />
+  </g>
+  
+  <!-- Accent circles -->
+  <g filter="url(#glow)">
+    <circle cx="100" cy="430" r="3" fill="#2979FF" opacity="0.5" />
+    <circle cx="300" cy="410" r="3" fill="#8E24AA" opacity="0.5" />
+    <circle cx="500" cy="420" r="3" fill="#FF5722" opacity="0.5" />
+    <circle cx="700" cy="440" r="3" fill="#2979FF" opacity="0.5" />
+    <circle cx="900" cy="410" r="3" fill="#8E24AA" opacity="0.5" />
+    <circle cx="1100" cy="430" r="3" fill="#FF5722" opacity="0.5" />
+    <circle cx="1300" cy="420" r="3" fill="#2979FF" opacity="0.5" />
+    <circle cx="1500" cy="430" r="3" fill="#8E24AA" opacity="0.5" />
+  </g>
+  
+  <!-- Waveform visualization -->
+  <g stroke="#FFFFFF" stroke-opacity="0.15">
+    <!-- Amplitude bars -->
+    <line x1="50" y1="450" x2="50" y2="460" stroke-width="4" />
+    <line x1="60" y1="450" x2="60" y2="470" stroke-width="4" />
+    <line x1="70" y1="450" x2="70" y2="455" stroke-width="4" />
+    <line x1="80" y1="450" x2="80" y2="465" stroke-width="4" />
+    <line x1="90" y1="450" x2="90" y2="480" stroke-width="4" />
+    <line x1="100" y1="450" x2="100" y2="440" stroke-width="4" />
+    <line x1="110" y1="450" x2="110" y2="420" stroke-width="4" />
+    <line x1="120" y1="450" x2="120" y2="430" stroke-width="4" />
+    <line x1="130" y1="450" x2="130" y2="435" stroke-width="4" />
+    <line x1="140" y1="450" x2="140" y2="425" stroke-width="4" />
+    
+    <line x1="150" y1="450" x2="150" y2="480" stroke-width="4" />
+    <line x1="160" y1="450" x2="160" y2="470" stroke-width="4" />
+    <line x1="170" y1="450" x2="170" y2="455" stroke-width="4" />
+    <line x1="180" y1="450" x2="180" y2="465" stroke-width="4" />
+    <line x1="190" y1="450" x2="190" y2="475" stroke-width="4" />
+    <line x1="200" y1="450" x2="200" y2="420" stroke-width="4" />
+    <line x1="210" y1="450" x2="210" y2="410" stroke-width="4" />
+    <line x1="220" y1="450" x2="220" y2="440" stroke-width="4" />
+    <line x1="230" y1="450" x2="230" y2="430" stroke-width="4" />
+    <line x1="240" y1="450" x2="240" y2="420" stroke-width="4" />
+    
+    <!-- More amplitude bars can be added throughout the width -->
+  </g>
+  
+  <!-- Circular elements -->
+  <circle cx="300" cy="200" r="100" fill="#8E24AA" opacity="0.05" />
+  <circle cx="1200" cy="600" r="150" fill="#2979FF" opacity="0.05" />
+  <circle cx="800" cy="300" r="120" fill="#FF5722" opacity="0.05" />
+</svg>
