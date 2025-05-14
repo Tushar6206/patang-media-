@@ -67,7 +67,7 @@ export default function AIAgentsSection({ onNavigate }: AIAgentsSectionProps) {
   // Agent card for showcasing in the initial view
   const agentCards: AgentCardProps[] = [
     {
-      image: 'https://ik.imagekit.io/patangomniverse/agents/stacy.jpg',
+      image: '/assets/images/agents/stacy.svg',
       name: 'Stacy™',
       version: 'v3.0',
       badge: {
@@ -93,7 +93,7 @@ export default function AIAgentsSection({ onNavigate }: AIAgentsSectionProps) {
       },
     },
     {
-      image: 'https://ik.imagekit.io/patangomniverse/agents/kairo.jpg',
+      image: '/assets/images/agents/kairo.svg',
       name: 'Kairo™',
       version: 'v2.5',
       badge: {
@@ -119,7 +119,7 @@ export default function AIAgentsSection({ onNavigate }: AIAgentsSectionProps) {
       },
     },
     {
-      image: 'https://ik.imagekit.io/patangomniverse/agents/viya.jpg',
+      image: '/assets/images/agents/viya.svg',
       name: 'Viya™',
       version: 'v2.8',
       badge: {
@@ -148,9 +148,9 @@ export default function AIAgentsSection({ onNavigate }: AIAgentsSectionProps) {
 
   // Default image URLs if the agent doesn't have a specific image
   const defaultAgentImages = {
-    stacy: 'https://ik.imagekit.io/patangomniverse/agents/stacy.jpg',
-    kairo: 'https://ik.imagekit.io/patangomniverse/agents/kairo.jpg',
-    viya: 'https://ik.imagekit.io/patangomniverse/agents/viya.jpg',
+    stacy: '/assets/images/agents/stacy.svg',
+    kairo: '/assets/images/agents/kairo.svg',
+    viya: '/assets/images/agents/viya.svg',
   };
 
   const handleSendChat = async () => {
