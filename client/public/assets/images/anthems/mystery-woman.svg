@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E44A45;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#922B28;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="spotlightGradient" cx="50%" cy="30%" r="70%" fx="50%" fy="30%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </radialGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)" />
+  
+  <!-- Spotlight effect -->
+  <ellipse cx="400" cy="180" rx="400" ry="300" fill="url(#spotlightGradient)" />
+  
+  <!-- Silhouette of a woman -->
+  <path d="M350,550 
+           C350,450 340,400 320,350 
+           C300,300 340,250 380,250
+           C420,250 460,300 440,350
+           C420,400 410,450 410,550
+           Z" 
+        fill="#000000" opacity="0.8" />
+  
+  <!-- Abstract hair flowing -->
+  <path d="M350,250 
+           C330,200 340,150 360,100
+           C380,50 420,50 440,100
+           C460,150 450,200 410,250
+           C390,270 370,270 350,250
+           Z" 
+        fill="#000000" opacity="0.8" />
+  
+  <!-- Mysterious elements - floating particles -->
+  <g filter="url(#blur)">
+    <circle cx="300" cy="200" r="5" fill="#FFFFFF" opacity="0.8" />
+    <circle cx="350" cy="150" r="3" fill="#FFFFFF" opacity="0.6" />
+    <circle cx="400" cy="100" r="4" fill="#FFFFFF" opacity="0.7" />
+    <circle cx="450" cy="150" r="3" fill="#FFFFFF" opacity="0.6" />
+    <circle cx="500" cy="200" r="5" fill="#FFFFFF" opacity="0.8" />
+    <circle cx="320" cy="250" r="4" fill="#FFFFFF" opacity="0.7" />
+    <circle cx="480" cy="250" r="4" fill="#FFFFFF" opacity="0.7" />
+  </g>
+  
+  <!-- Abstract music note elements -->
+  <g opacity="0.6">
+    <path d="M200,350 C210,340 220,350 220,370 L220,450 C220,470 200,480 180,470 C160,460 150,430 170,420 C190,410 210,420 210,440 L210,370" 
+          fill="none" stroke="#FFFFFF" stroke-width="3" />
+    
+    <path d="M600,300 C610,290 620,300 620,320 L620,400 C620,420 600,430 580,420 C560,410 550,380 570,370 C590,360 610,370 610,390 L610,320" 
+          fill="none" stroke="#FFFFFF" stroke-width="3" />
+  </g>
+  
+  <!-- Match.com branding -->
+  <g transform="translate(400, 550)">
+    <rect x="-120" y="-30" width="240" height="50" rx="25" ry="25" fill="#FFFFFF" opacity="0.2" />
+    <text x="0" y="0" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#FFFFFF">MYSTERY WOMAN</text>
+    <text x="0" y="20" font-family="Arial" font-size="12" text-anchor="middle" fill="#FFFFFF">Match.com UK + EU Campaign</text>
+  </g>
+  
+  <!-- Patang Media branding -->
+  <g transform="translate(700, 30)">
+    <text x="0" y="0" font-family="Arial" font-size="12" font-weight="bold" text-anchor="end" fill="#FFFFFF">PATANG MEDIA</text>
+  </g>
+</svg>

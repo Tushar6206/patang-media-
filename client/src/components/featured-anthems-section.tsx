@@ -18,8 +18,8 @@ const FeaturedAnthemsSection: React.FC = () => {
       impact: "Mystery Woman highlights Patang's ability to merge music, narrative, and brand identity — and was crafted for use across digital ads, curated playlists, and social rollouts.",
       clientInfo: "Match.com",
       platforms: ["Digital Ads", "Curated Playlists", "Social Media", "Brand Campaigns"],
-      thumbnail: "https://i.imgur.com/zXmQRVD.jpg",
-      logoUrl: "https://i.imgur.com/aVmOuQH.png",
+      thumbnail: "/assets/images/anthems/mystery-woman.svg",
+      logoUrl: "/assets/images/logos/match-logo.svg",
       accent: "#E44A45"
     },
     {
@@ -31,8 +31,8 @@ const FeaturedAnthemsSection: React.FC = () => {
       impact: "With cinematic visuals and a vibey, beat-driven sound, the anthem plays across Generator's in-hostel lounges and is integrated into their digital campaigns.",
       clientInfo: "Generator Hostel – Paris",
       platforms: ["Lounge Playlist", "Marketing Soundtrack", "Digital Branding"],
-      thumbnail: "https://i.imgur.com/5hYHYlX.jpg",
-      logoUrl: "https://i.imgur.com/BPCRrlF.png",
+      thumbnail: "/assets/images/anthems/hostel-hearts.svg",
+      logoUrl: "/assets/images/logos/generator-logo.svg",
       accent: "#5073B8"
     }
   ];
