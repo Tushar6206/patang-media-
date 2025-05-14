@@ -104,7 +104,7 @@ const InvestorSection: React.FC<InvestorSectionProps> = ({ onNavigate }) => {
           <div>
             {/* Futuristic technology concept image */}
             <motion.img 
-              src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
+              src="/assets/images/backgrounds/investor-tech.svg" 
               alt="Futuristic digital technology concept representing AI innovation" 
               className="rounded-xl shadow-lg shadow-[#2979FF]/20 w-full h-auto"
               initial={{ opacity: 0, x: 30 }}
