@@ -97,7 +97,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ onNavigate }) => {
               <div>
                 {/* Digital media concept showing metrics and social media posts */}
                 <motion.img 
-                  src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
+                  src="/assets/images/campaigns/welloh-campaign.svg" 
                   alt="WellOh campaign dashboard showing metrics and social media performance" 
                   className="rounded-xl border border-[#2979FF]/20 shadow-lg"
                   whileHover={{ scale: 1.02 }}
@@ -112,7 +112,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ onNavigate }) => {
                     transition={{ duration: 0.3 }}
                   >
                     <img 
-                      src="https://images.unsplash.com/photo-1584093091778-e7f4e76e8063?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                      src="/assets/images/campaigns/yoga-pose.svg" 
                       alt="Stacy model with WellOh product - yoga pose" 
                       className="w-full h-auto aspect-square object-cover" 
                     />
@@ -125,7 +125,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ onNavigate }) => {
                     transition={{ duration: 0.3 }}
                   >
                     <img 
-                      src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                      src="/assets/images/campaigns/smoothie.svg" 
                       alt="Stacy model with WellOh product - healthy smoothie" 
                       className="w-full h-auto aspect-square object-cover" 
                     />
@@ -138,7 +138,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ onNavigate }) => {
                     transition={{ duration: 0.3 }}
                   >
                     <img 
-                      src="https://images.unsplash.com/photo-1574279606130-09958dc756f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                      src="/assets/images/campaigns/meditation.svg" 
                       alt="Stacy model with WellOh product - meditation scene" 
                       className="w-full h-auto aspect-square object-cover" 
                     />
