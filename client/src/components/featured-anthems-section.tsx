@@ -13,12 +13,12 @@ const FeaturedAnthemsSection: React.FC = () => {
       id: "mystery-woman",
       title: "Mystery Woman",
       client: "Match.com UK + EU Campaign",
-      videoId: "dQw4w9WgXcQ", // Placeholder video ID - replace with actual video ID
+      videoId: "qiaHeO-GudE",
       description: "Patang Media proudly produced and released Mystery Woman, the flagship anthem for Match.com's branding campaigns across the UK and parts of Europe. This soulful and cinematic track became part of Match.com's wider marketing strategy — blending storytelling and romantic realism with Match's core brand values.",
       impact: "Mystery Woman highlights Patang's ability to merge music, narrative, and brand identity — and was crafted for use across digital ads, curated playlists, and social rollouts.",
       clientInfo: "Match.com",
       platforms: ["Digital Ads", "Curated Playlists", "Social Media", "Brand Campaigns"],
-      thumbnail: "/assets/images/anthems/mystery-woman.svg",
+      thumbnail: "@assets/F8E751C4-BE8C-4D6C-A098-FD732E3C01F1_1749290313977.jpeg",
       logoUrl: "/assets/images/logos/match-logo.svg",
       accent: "#E44A45"
     },
@@ -96,7 +96,13 @@ const FeaturedAnthemsSection: React.FC = () => {
                           <div 
                             className="w-full h-full bg-cover bg-center cursor-pointer flex items-center justify-center relative"
                             style={{ backgroundImage: `url(${anthem.thumbnail})` }}
-                            onClick={() => setActiveVideoId(anthem.id)}
+                            onClick={() => {
+                              if (anthem.id === "mystery-woman") {
+                                window.open(`https://youtu.be/${anthem.videoId}`, '_blank');
+                              } else {
+                                setActiveVideoId(anthem.id);
+                              }
+                            }}
                           >
                             <div className="absolute inset-0 bg-black/30"></div>
                             <div className="w-20 h-20 rounded-full bg-[#E44A45]/90 flex items-center justify-center z-10">
