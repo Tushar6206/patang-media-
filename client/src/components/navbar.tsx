@@ -41,6 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const mainNavItems = [
     { id: "home", label: "Home" },
     { id: "agents", label: "AI Agents" },
+    { id: "careers", label: "Careers" },
   ];
   
   const featureNavItems = [

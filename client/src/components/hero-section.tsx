@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { CreditCard } from "lucide-react";
+import { PatSwapPreorderModal } from "@/components/patswap-preorder-modal";
 
 interface HeroSectionProps {
   onNavigate: (sectionId: string) => void;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
+  const [showPatSwapModal, setShowPatSwapModal] = useState(false);
+
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-24">
       {/* Background Blobs */}
@@ -58,6 +63,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               >
                 Explore Our AI Agents
               </motion.a>
+              
+              <Button
+                variant="outline"
+                className="px-8 py-3 border-[#00BCD4] text-[#00BCD4] hover:bg-[#00BCD4]/10 font-orbitron"
+                onClick={() => setShowPatSwapModal(true)}
+              >
+                <CreditCard className="mr-2 h-4 w-4" />
+                Get PatSwap Card
+              </Button>
             </div>
           </motion.div>
           
@@ -104,6 +118,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           </motion.div>
         </div>
       </div>
+      
+      <PatSwapPreorderModal 
+        isOpen={showPatSwapModal} 
+        onClose={() => setShowPatSwapModal(false)} 
+      />
     </section>
   );
 };

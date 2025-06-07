@@ -13,6 +13,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { PatSwapPreorderModal } from "@/components/patswap-preorder-modal";
+import { CreditCard } from "lucide-react";
 
 // Login form schema
 const loginSchema = z.object({
@@ -49,6 +51,7 @@ const registerSchema = z.object({
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<string>("login");
+  const [showPatSwapModal, setShowPatSwapModal] = useState(false);
   const [location, navigate] = useLocation();
   const { user, loginMutation, registerMutation } = useAuth();
   const { toast } = useToast();
@@ -409,6 +412,20 @@ export default function AuthPage() {
                   </Form>
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4">
+                  <div className="w-full border-t border-[#2A2A4A] pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-[#2979FF] text-[#2979FF] hover:bg-[#2979FF]/10"
+                      onClick={() => setShowPatSwapModal(true)}
+                    >
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      Get PatSwap Card Access
+                    </Button>
+                    <p className="text-xs text-gray-500 text-center mt-2">
+                      Preorder PatSwap card for exclusive access and 500 RIKO tokens
+                    </p>
+                  </div>
                   <div className="text-sm text-gray-500 text-center w-full">
                     Already have an account?{" "}
                     <button 
@@ -424,6 +441,11 @@ export default function AuthPage() {
           </Tabs>
         </motion.div>
       </div>
+      
+      <PatSwapPreorderModal 
+        isOpen={showPatSwapModal} 
+        onClose={() => setShowPatSwapModal(false)} 
+      />
     </div>
   );
 }

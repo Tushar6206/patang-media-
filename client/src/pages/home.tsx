@@ -13,6 +13,7 @@ import TwinSyncSection from "@/components/twin-sync-section";
 import RhythmRouletteSection from "@/components/rhythm-roulette-section";
 import FeaturedAnthemsSection from "@/components/featured-anthems-section";
 import GenreRecommenderSection from "@/components/genre-recommender-section";
+import CareersSection from "@/components/careers-section";
 import Footer from "@/components/footer";
 import { scrollToSection } from "@/lib/utils";
 
@@ -49,6 +50,7 @@ const Home: React.FC = () => {
         <FeaturedAnthemsSection />
         <GenreRecommenderSection onNavigate={handleNavigation} />
         <CampaignSection onNavigate={handleNavigation} />
+        <CareersSection onNavigate={handleNavigation} />
         <InvestorSection onNavigate={handleNavigation} />
         <ContactSection />
       </main>
