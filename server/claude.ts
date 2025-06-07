@@ -173,9 +173,115 @@ export class ViyaAgent extends AIAgent {
 }
 
 // Initialize agents
+export class MoodDetectorAgent extends AIAgent {
+  constructor() {
+    super("Mood Detector", "Advanced emotional intelligence specialist");
+  }
+
+  async detectMoodFromText(text: string): Promise<{ mood: string, confidence: number, intensity: number }> {
+    const prompt = `
+    Analyze the emotional state and mood from this text. Be highly accurate and consider subtle emotional cues.
+    
+    Text: "${text}"
+    
+    Return ONLY a JSON object with these exact keys:
+    {
+      "mood": "one of: happy, sad, energetic, calm, anxious, confident, excited, melancholic, romantic, focused, nostalgic, rebellious, peaceful",
+      "confidence": integer from 1-100 representing confidence in detection,
+      "intensity": integer from 1-10 representing emotional intensity
+    }
+    `;
+
+    try {
+      const response = await this.generateResponse(prompt);
+      const result = JSON.parse(response);
+      
+      return {
+        mood: result.mood,
+        confidence: Math.max(1, Math.min(100, result.confidence)),
+        intensity: Math.max(1, Math.min(10, result.intensity))
+      };
+    } catch (error) {
+      throw new Error("Failed to detect mood: " + error.message);
+    }
+  }
+
+  async generateMixtapeFromMood(mood: string, intensity: number, userPreferences?: string): Promise<{
+    title: string,
+    tracks: Array<{
+      title: string,
+      artist: string,
+      genre: string,
+      energy: number,
+      mood_match: number
+    }>,
+    reasoning: string
+  }> {
+    const prompt = `
+    Create a personalized music mixtape for someone feeling "${mood}" with intensity ${intensity}/10.
+    ${userPreferences ? `User preferences: ${userPreferences}` : ''}
+    
+    Generate 8-12 tracks that would perfectly match and enhance this emotional state.
+    Consider musical elements like tempo, key, instrumentation, and lyrical themes.
+    
+    Return ONLY a JSON object with:
+    {
+      "title": "creative mixtape name",
+      "tracks": [
+        {
+          "title": "song title",
+          "artist": "artist name", 
+          "genre": "music genre",
+          "energy": integer 1-10,
+          "mood_match": integer 1-10
+        }
+      ],
+      "reasoning": "brief explanation of curation strategy"
+    }
+    `;
+
+    try {
+      const response = await this.generateResponse(prompt);
+      return JSON.parse(response);
+    } catch (error) {
+      throw new Error("Failed to generate mixtape: " + error.message);
+    }
+  }
+
+  async adaptMixtapeToNewMood(currentTracks: any[], oldMood: string, newMood: string, intensity: number): Promise<{
+    adaptedTracks: any[],
+    transitionStrategy: string
+  }> {
+    const prompt = `
+    The user's mood has changed from "${oldMood}" to "${newMood}" (intensity: ${intensity}/10).
+    
+    Current mixtape tracks: ${JSON.stringify(currentTracks)}
+    
+    Intelligently adapt the mixtape by:
+    1. Keeping 3-5 tracks that still work
+    2. Replacing others with mood-appropriate alternatives
+    3. Reordering for smooth emotional transitions
+    
+    Return ONLY a JSON object with:
+    {
+      "adaptedTracks": [same format as input tracks],
+      "transitionStrategy": "explanation of adaptation approach"
+    }
+    `;
+
+    try {
+      const response = await this.generateResponse(prompt);
+      return JSON.parse(response);
+    } catch (error) {
+      throw new Error("Failed to adapt mixtape: " + error.message);
+    }
+  }
+}
+
 export const stacyAgent = new StacyAgent();
 export const kairoAgent = new KairoAgent();
 export const viyaAgent = new ViyaAgent();
+export const moodDetectorAgent = new MoodDetectorAgent();
 
 // Express API route handlers for the agents
 export function registerAgentRoutes(app: any) {

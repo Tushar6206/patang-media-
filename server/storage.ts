@@ -6,7 +6,9 @@ import {
   userAvatars, type UserAvatar, type InsertUserAvatar,
   userVoiceSamples, type UserVoiceSample, type InsertUserVoiceSample,
   listeningHistory, type ListeningHistory, type InsertListeningHistory,
-  rhythmRouletteCompositions, type RhythmRouletteComposition, type InsertRhythmRoulette
+  rhythmRouletteCompositions, type RhythmRouletteComposition, type InsertRhythmRoulette,
+  moodMixtapes, type MoodMixtape, type InsertMoodMixtape,
+  moodDetectionSessions, type MoodDetectionSession, type InsertMoodDetection
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, sql } from "drizzle-orm";
@@ -62,6 +64,19 @@ export interface IStorage {
   // Rhythm Roulette generation tracking
   incrementRhythmRouletteGenerationCount(userId: number): Promise<number>;
   getRhythmRouletteGenerationCount(userId: number): Promise<number>;
+  
+  // Mood Mixtapes
+  createMoodMixtape(mixtape: InsertMoodMixtape): Promise<MoodMixtape>;
+  getUserMoodMixtapes(userId: number): Promise<MoodMixtape[]>;
+  getMoodMixtape(id: number): Promise<MoodMixtape | undefined>;
+  updateMoodMixtape(id: number, data: Partial<Omit<MoodMixtape, 'id' | 'userId' | 'createdAt'>>): Promise<MoodMixtape>;
+  deleteMoodMixtape(id: number): Promise<void>;
+  getActiveMoodMixtape(userId: number): Promise<MoodMixtape | undefined>;
+  
+  // Mood Detection Sessions
+  createMoodDetectionSession(session: InsertMoodDetection): Promise<MoodDetectionSession>;
+  getUserMoodDetectionHistory(userId: number, limit?: number): Promise<MoodDetectionSession[]>;
+  getRecentMoodDetection(userId: number): Promise<MoodDetectionSession | undefined>;
 }
 
 // Database storage implementation
@@ -367,6 +382,90 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(rhythmRouletteCompositions)
       .where(eq(rhythmRouletteCompositions.id, id));
+  }
+
+  // Mood Mixtapes operations
+  async createMoodMixtape(mixtape: InsertMoodMixtape): Promise<MoodMixtape> {
+    const [newMixtape] = await db
+      .insert(moodMixtapes)
+      .values(mixtape)
+      .returning();
+    
+    return newMixtape;
+  }
+  
+  async getUserMoodMixtapes(userId: number): Promise<MoodMixtape[]> {
+    return db
+      .select()
+      .from(moodMixtapes)
+      .where(eq(moodMixtapes.userId, userId))
+      .orderBy(desc(moodMixtapes.createdAt));
+  }
+  
+  async getMoodMixtape(id: number): Promise<MoodMixtape | undefined> {
+    const [mixtape] = await db
+      .select()
+      .from(moodMixtapes)
+      .where(eq(moodMixtapes.id, id));
+    
+    return mixtape || undefined;
+  }
+  
+  async updateMoodMixtape(id: number, data: Partial<Omit<MoodMixtape, 'id' | 'userId' | 'createdAt'>>): Promise<MoodMixtape> {
+    const [updatedMixtape] = await db
+      .update(moodMixtapes)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(moodMixtapes.id, id))
+      .returning();
+    
+    return updatedMixtape;
+  }
+  
+  async deleteMoodMixtape(id: number): Promise<void> {
+    await db
+      .delete(moodMixtapes)
+      .where(eq(moodMixtapes.id, id));
+  }
+  
+  async getActiveMoodMixtape(userId: number): Promise<MoodMixtape | undefined> {
+    const [activeMixtape] = await db
+      .select()
+      .from(moodMixtapes)
+      .where(and(eq(moodMixtapes.userId, userId), eq(moodMixtapes.isActive, true)))
+      .orderBy(desc(moodMixtapes.lastAdaptedAt))
+      .limit(1);
+    
+    return activeMixtape || undefined;
+  }
+  
+  // Mood Detection Sessions operations
+  async createMoodDetectionSession(session: InsertMoodDetection): Promise<MoodDetectionSession> {
+    const [newSession] = await db
+      .insert(moodDetectionSessions)
+      .values(session)
+      .returning();
+    
+    return newSession;
+  }
+  
+  async getUserMoodDetectionHistory(userId: number, limit: number = 10): Promise<MoodDetectionSession[]> {
+    return db
+      .select()
+      .from(moodDetectionSessions)
+      .where(eq(moodDetectionSessions.userId, userId))
+      .orderBy(desc(moodDetectionSessions.createdAt))
+      .limit(limit);
+  }
+  
+  async getRecentMoodDetection(userId: number): Promise<MoodDetectionSession | undefined> {
+    const [recentDetection] = await db
+      .select()
+      .from(moodDetectionSessions)
+      .where(eq(moodDetectionSessions.userId, userId))
+      .orderBy(desc(moodDetectionSessions.createdAt))
+      .limit(1);
+    
+    return recentDetection || undefined;
   }
 }
 

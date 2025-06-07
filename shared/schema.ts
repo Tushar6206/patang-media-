@@ -219,3 +219,59 @@ export const insertRhythmRouletteSchema = createInsertSchema(rhythmRouletteCompo
 
 export type InsertRhythmRoulette = z.infer<typeof insertRhythmRouletteSchema>;
 export type RhythmRouletteComposition = typeof rhythmRouletteCompositions.$inferSelect;
+
+// Mood Mixtapes
+export const moodMixtapes = pgTable("mood_mixtapes", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  mood: text("mood").notNull(), // happy, sad, energetic, calm, anxious, confident, etc.
+  emotionalIntensity: integer("emotional_intensity").notNull().default(5), // 1-10 scale
+  genres: text("genres").array().notNull().default([]),
+  tracks: text("tracks").array().notNull().default([]), // JSON stringified track objects
+  adaptationHistory: text("adaptation_history").array().notNull().default([]), // mood changes over time
+  isActive: boolean("is_active").notNull().default(true),
+  lastAdaptedAt: timestamp("last_adapted_at", { withTimezone: true }).defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});
+
+export const insertMoodMixtapeSchema = createInsertSchema(moodMixtapes).pick({
+  userId: true,
+  title: true,
+  mood: true,
+  emotionalIntensity: true,
+  genres: true,
+  tracks: true,
+  adaptationHistory: true,
+  isActive: true,
+});
+
+export type InsertMoodMixtape = z.infer<typeof insertMoodMixtapeSchema>;
+export type MoodMixtape = typeof moodMixtapes.$inferSelect;
+
+// Mood Detection Sessions
+export const moodDetectionSessions = pgTable("mood_detection_sessions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  mixtapeId: integer("mixtape_id").references(() => moodMixtapes.id),
+  detectedMood: text("detected_mood").notNull(),
+  confidence: integer("confidence").notNull(), // 1-100 percentage
+  detectionMethod: text("detection_method").notNull(), // "text_analysis", "voice_tone", "user_input", "behavioral"
+  inputData: text("input_data"), // user's text, voice sample description, etc.
+  sessionDuration: integer("session_duration_minutes"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+});
+
+export const insertMoodDetectionSchema = createInsertSchema(moodDetectionSessions).pick({
+  userId: true,
+  mixtapeId: true,
+  detectedMood: true,
+  confidence: true,
+  detectionMethod: true,
+  inputData: true,
+  sessionDuration: true,
+});
+
+export type InsertMoodDetection = z.infer<typeof insertMoodDetectionSchema>;
+export type MoodDetectionSession = typeof moodDetectionSessions.$inferSelect;
