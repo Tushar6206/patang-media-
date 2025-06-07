@@ -45,6 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   ];
   
   const featureNavItems = [
+    { id: "mood-mixtape", label: "Mood Mixtape" },
     { id: "vocalverse", label: "VocalVerse™" },
     { id: "beatdrop", label: "BeatDrop™" },
     { id: "twinsync", label: "TwinSync™" },

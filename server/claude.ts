@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { Request, Response } from 'express';
+import { storage } from './storage';
 
 // Initialize Anthropic client
 // the newest Anthropic model is "claude-3-7-sonnet-20250219" which was released February 24, 2025
@@ -479,6 +480,161 @@ export function registerAgentRoutes(app: any) {
       res.status(500).json({
         success: false,
         message: error.message || 'Failed to process chat message'
+      });
+    }
+  });
+
+  // Mood Detection and Mixtape Generation Routes
+  app.post('/api/mood/detect', checkAuth, async (req: Request, res: Response) => {
+    try {
+      const { text, method = 'text_analysis' } = req.body;
+      const userId = req.user!.id;
+
+      if (!text) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing required parameter: text'
+        });
+      }
+
+      const detection = await moodDetectorAgent.detectMoodFromText(text);
+      
+      // Store the mood detection session
+      const session = await storage.createMoodDetectionSession({
+        userId,
+        detectedMood: detection.mood,
+        confidence: detection.confidence,
+        detectionMethod: method,
+        inputData: text,
+      });
+
+      res.json({
+        success: true,
+        ...detection,
+        sessionId: session.id
+      });
+    } catch (error: any) {
+      console.error('Mood detection error:', error);
+      res.status(500).json({ 
+        success: false,
+        message: error.message || 'Failed to detect mood' 
+      });
+    }
+  });
+
+  app.post('/api/mixtape/generate', checkAuth, async (req: Request, res: Response) => {
+    try {
+      const { mood, intensity, preferences } = req.body;
+      const userId = req.user!.id;
+
+      if (!mood || !intensity) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing required parameters: mood and intensity'
+        });
+      }
+
+      const mixtapeData = await moodDetectorAgent.generateMixtapeFromMood(mood, intensity, preferences);
+      
+      // Create the mixtape in the database
+      const mixtape = await storage.createMoodMixtape({
+        userId,
+        title: mixtapeData.title,
+        mood,
+        emotionalIntensity: intensity,
+        tracks: mixtapeData.tracks.map(track => JSON.stringify(track)),
+        adaptationHistory: [`Created with ${mood} mood (intensity: ${intensity})`],
+        isActive: true,
+      });
+
+      res.json({
+        success: true,
+        mixtape,
+        tracks: mixtapeData.tracks,
+        reasoning: mixtapeData.reasoning
+      });
+    } catch (error: any) {
+      console.error('Mixtape generation error:', error);
+      res.status(500).json({ 
+        success: false,
+        message: error.message || 'Failed to generate mixtape' 
+      });
+    }
+  });
+
+  app.post('/api/mixtape/:id/adapt', checkAuth, async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { newMood, intensity } = req.body;
+      const userId = req.user!.id;
+
+      if (!newMood || !intensity) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing required parameters: newMood and intensity'
+        });
+      }
+
+      const mixtape = await storage.getMoodMixtape(parseInt(id));
+      if (!mixtape || mixtape.userId !== userId) {
+        return res.status(404).json({ 
+          success: false,
+          message: 'Mixtape not found' 
+        });
+      }
+
+      const currentTracks = mixtape.tracks.map(track => JSON.parse(track));
+      const adaptation = await moodDetectorAgent.adaptMixtapeToNewMood(
+        currentTracks, 
+        mixtape.mood, 
+        newMood, 
+        intensity
+      );
+
+      // Update the mixtape
+      const updatedMixtape = await storage.updateMoodMixtape(parseInt(id), {
+        mood: newMood,
+        emotionalIntensity: intensity,
+        tracks: adaptation.adaptedTracks.map(track => JSON.stringify(track)),
+        adaptationHistory: [
+          ...mixtape.adaptationHistory,
+          `Adapted from ${mixtape.mood} to ${newMood} (intensity: ${intensity})`
+        ],
+        lastAdaptedAt: new Date(),
+      });
+
+      res.json({
+        success: true,
+        mixtape: updatedMixtape,
+        tracks: adaptation.adaptedTracks,
+        transitionStrategy: adaptation.transitionStrategy
+      });
+    } catch (error: any) {
+      console.error('Mixtape adaptation error:', error);
+      res.status(500).json({ 
+        success: false,
+        message: error.message || 'Failed to adapt mixtape' 
+      });
+    }
+  });
+
+  app.get('/api/mixtapes', checkAuth, async (req: Request, res: Response) => {
+    try {
+      const userId = req.user!.id;
+      const mixtapes = await storage.getUserMoodMixtapes(userId);
+      
+      res.json({
+        success: true,
+        mixtapes: mixtapes.map(mixtape => ({
+          ...mixtape,
+          tracks: mixtape.tracks.map(track => JSON.parse(track))
+        }))
+      });
+    } catch (error: any) {
+      console.error('Get mixtapes error:', error);
+      res.status(500).json({ 
+        success: false,
+        message: error.message || 'Failed to fetch mixtapes' 
       });
     }
   });
