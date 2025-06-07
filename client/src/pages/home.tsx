@@ -13,6 +13,7 @@ import TwinSyncSection from "@/components/twin-sync-section";
 import RhythmRouletteSection from "@/components/rhythm-roulette-section";
 import FeaturedAnthemsSection from "@/components/featured-anthems-section";
 import GenreRecommenderSection from "@/components/genre-recommender-section";
+import MoodMixtapeSection from "@/components/mood-mixtape-section";
 import CareersSection from "@/components/careers-section";
 import Footer from "@/components/footer";
 import { scrollToSection } from "@/lib/utils";
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
       <main>
         <HeroSection onNavigate={handleNavigation} />
         <AIAgentsSection onNavigate={handleNavigation} />
+        <MoodMixtapeSection onNavigate={handleNavigation} />
         <VocalVerseSection onNavigate={handleNavigation} />
         <BeatDropSection onNavigate={handleNavigation} />
         <TwinSyncSection onNavigate={handleNavigation} />

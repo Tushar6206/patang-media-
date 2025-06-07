@@ -202,7 +202,7 @@ export class MoodDetectorAgent extends AIAgent {
         confidence: Math.max(1, Math.min(100, result.confidence)),
         intensity: Math.max(1, Math.min(10, result.intensity))
       };
-    } catch (error) {
+    } catch (error: any) {
       throw new Error("Failed to detect mood: " + error.message);
     }
   }
@@ -244,7 +244,7 @@ export class MoodDetectorAgent extends AIAgent {
     try {
       const response = await this.generateResponse(prompt);
       return JSON.parse(response);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error("Failed to generate mixtape: " + error.message);
     }
   }
@@ -273,7 +273,7 @@ export class MoodDetectorAgent extends AIAgent {
     try {
       const response = await this.generateResponse(prompt);
       return JSON.parse(response);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error("Failed to adapt mixtape: " + error.message);
     }
   }
@@ -542,7 +542,7 @@ export function registerAgentRoutes(app: any) {
         title: mixtapeData.title,
         mood,
         emotionalIntensity: intensity,
-        tracks: mixtapeData.tracks.map(track => JSON.stringify(track)),
+        tracks: mixtapeData.tracks.map((track: any) => JSON.stringify(track)),
         adaptationHistory: [`Created with ${mood} mood (intensity: ${intensity})`],
         isActive: true,
       });
@@ -595,7 +595,7 @@ export function registerAgentRoutes(app: any) {
       const updatedMixtape = await storage.updateMoodMixtape(parseInt(id), {
         mood: newMood,
         emotionalIntensity: intensity,
-        tracks: adaptation.adaptedTracks.map(track => JSON.stringify(track)),
+        tracks: adaptation.adaptedTracks.map((track: any) => JSON.stringify(track)),
         adaptationHistory: [
           ...mixtape.adaptationHistory,
           `Adapted from ${mixtape.mood} to ${newMood} (intensity: ${intensity})`
@@ -625,9 +625,9 @@ export function registerAgentRoutes(app: any) {
       
       res.json({
         success: true,
-        mixtapes: mixtapes.map(mixtape => ({
+        mixtapes: mixtapes.map((mixtape: any) => ({
           ...mixtape,
-          tracks: mixtape.tracks.map(track => JSON.parse(track))
+          tracks: mixtape.tracks.map((track: any) => JSON.parse(track))
         }))
       });
     } catch (error: any) {
