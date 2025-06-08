@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { audioPlayer, generatedBeats, downloadAudio } from "@/lib/audio";
+import { audioPlayer, generatedBeats } from "@/lib/audio";
+import { professionalAudio, AudioTrackData } from "@/lib/professionalAudio";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface BeatDropSectionProps {
@@ -22,6 +23,7 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
   const [showGenerator, setShowGenerator] = useState(false);
   const [description, setDescription] = useState("");
   const [promptTemplate, setPromptTemplate] = useState("");
+  const [generatedTracks, setGeneratedTracks] = useState<AudioTrackData[]>([]);
   const [sliders, setSliders] = useState({
     tempo: [120],
     energy: [70],
@@ -42,23 +44,45 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
     audioPlayer.play(id, 'beat');
   };
   
-  const handleDownloadBeat = (id: number) => {
-    const beat = generatedBeats.find(b => b.id === id);
-    if (beat) {
-      downloadAudio(beat.audioUrl, `${beat.name.toLowerCase().replace(/\s+/g, '-')}.mp3`)
-        .then(() => {
+  const handleDownloadBeat = async (trackData?: AudioTrackData, legacyId?: number) => {
+    try {
+      if (trackData) {
+        await professionalAudio.downloadAudio(trackData, 'wav');
+      } else if (legacyId) {
+        const beat = generatedBeats.find(b => b.id === legacyId);
+        if (beat) {
+          // Create download link for legacy beats
+          const a = document.createElement('a');
+          a.href = beat.audioUrl;
+          a.download = `${beat.name.toLowerCase().replace(/\s+/g, '-')}.mp3`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          
           toast({
             title: "Download Started",
             description: `${beat.name} is downloading to your device.`,
           });
-        })
-        .catch(error => {
-          toast({
-            title: "Download Failed",
-            description: "There was an error downloading the beat.",
-            variant: "destructive"
-          });
-        });
+        }
+      }
+    } catch (error: any) {
+      toast({
+        title: "Download Failed",
+        description: "Unable to download the beat. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleShareBeat = async (trackData: AudioTrackData) => {
+    try {
+      await professionalAudio.shareViaWhatsApp(trackData);
+    } catch (error: any) {
+      toast({
+        title: "Share Failed",
+        description: "Unable to share via WhatsApp. Please try again.",
+        variant: "destructive",
+      });
     }
   };
   
