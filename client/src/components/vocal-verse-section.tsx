@@ -322,29 +322,34 @@ const VocalVerseSection: React.FC<VocalVerseSectionProps> = ({ onNavigate }) => 
                           </div>
                           
                           <div className="flex justify-between">
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="text-xs gap-1"
-                              onClick={() => {
-                                const filename = "your-voice-clone.mp3";
-                                const url = "https://cdn.pixabay.com/download/audio/2023/05/02/audio_1bc13f8b43.mp3?filename=your-my-senorita-137518.mp3";
-                                
-                                const a = document.createElement('a');
-                                a.href = url;
-                                a.download = filename;
-                                document.body.appendChild(a);
-                                a.click();
-                                document.body.removeChild(a);
-                                
-                                toast({
-                                  title: "Download Started",
-                                  description: `${filename} is downloading.`,
-                                });
-                              }}
-                            >
-                              <i className="fas fa-download"></i> Download
-                            </Button>
+                            {generatedVoiceClones.length > 0 ? (
+                              <div className="flex space-x-2">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="text-xs gap-1 border-[#2979FF]/50 text-[#2979FF] hover:bg-[#2979FF]/10"
+                                  onClick={() => handleDownloadVoice(generatedVoiceClones[0])}
+                                >
+                                  <i className="fas fa-download"></i> MP3
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="text-xs gap-1 bg-green-600 hover:bg-green-700"
+                                  onClick={() => handleShareVoice(generatedVoiceClones[0])}
+                                >
+                                  <i className="fab fa-whatsapp"></i> Share
+                                </Button>
+                              </div>
+                            ) : (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="text-xs gap-1 opacity-50 cursor-not-allowed"
+                                disabled
+                              >
+                                <i className="fas fa-download"></i> Generate First
+                              </Button>
+                            )}
                             <div className="flex space-x-2">
                               <Button size="sm" variant="outline" className="h-8 w-8 p-0 rounded-full">
                                 <i className="fas fa-step-backward text-xs"></i>
