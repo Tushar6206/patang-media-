@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { professionalAudio, VoiceCloneData } from "@/lib/professionalAudio";
 
 interface VocalVerseSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -23,6 +24,8 @@ const VocalVerseSection: React.FC<VocalVerseSectionProps> = ({ onNavigate }) => 
   const [pitchSlider, setPitchSlider] = useState([50]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
+  const [generatedVoiceClones, setGeneratedVoiceClones] = useState<VoiceCloneData[]>([]);
+  const [voiceText, setVoiceText] = useState("Hello, this is my AI voice clone created with Patang technology!");
   
   const { toast } = useToast();
   
@@ -51,18 +54,73 @@ const VocalVerseSection: React.FC<VocalVerseSectionProps> = ({ onNavigate }) => 
     }, 3000);
   };
   
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
+    if (!hasRecorded && !uploadedFile) {
+      toast({
+        title: "Voice Sample Required",
+        description: "Please record or upload a voice sample first.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsGenerating(true);
     
-    // Simulate generation process
-    setTimeout(() => {
+    try {
+      const characteristics = {
+        pitch: pitchSlider[0] / 50, // Convert 0-100 to 0-2
+        tone: selectedVoiceStyle,
+        accent: "neutral",
+        emotion: emotionSlider[0] > 70 ? "happy" : 
+                emotionSlider[0] > 30 ? "neutral" : "calm"
+      };
+
+      const voiceClone = await professionalAudio.generateVoiceClone(
+        voiceText,
+        characteristics,
+        15 // 15-second sample
+      );
+
+      setGeneratedVoiceClones(prev => [voiceClone, ...prev]);
       setIsGenerating(false);
       setIsGenerated(true);
+      
       toast({
-        title: "Voice Generated",
-        description: "Your AI singing voice has been created successfully!",
+        title: "Professional Voice Clone Generated",
+        description: `${voiceClone.name} is ready with full-quality audio export.`,
       });
-    }, 3000);
+    } catch (error: any) {
+      setIsGenerating(false);
+      toast({
+        title: "Generation Failed",
+        description: "Unable to generate voice clone. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDownloadVoice = async (voiceClone: VoiceCloneData) => {
+    try {
+      await professionalAudio.downloadAudio(voiceClone, 'wav');
+    } catch (error: any) {
+      toast({
+        title: "Download Failed",
+        description: "Unable to download the voice clone. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleShareVoice = async (voiceClone: VoiceCloneData) => {
+    try {
+      await professionalAudio.shareViaWhatsApp(voiceClone);
+    } catch (error: any) {
+      toast({
+        title: "Share Failed",
+        description: "Unable to share via WhatsApp. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   const voiceStyles = [

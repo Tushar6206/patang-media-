@@ -86,7 +86,7 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
     }
   };
   
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!description && !promptTemplate) {
       toast({
         title: "Input Required",
@@ -98,15 +98,40 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
     
     setIsGenerating(true);
     
-    // Simulate generation process
-    setTimeout(() => {
+    try {
+      // Determine genre from description
+      const genre = description.toLowerCase().includes('trap') ? 'trap' : 
+                   description.toLowerCase().includes('house') ? 'house' : 
+                   description.toLowerCase().includes('drill') ? 'trap' : 'house';
+      
+      const bpm = sliders.tempo[0];
+      const duration = 30; // 30-second preview
+      const complexity = sliders.complexity[0] > 70 ? 'professional' : 
+                        sliders.complexity[0] > 40 ? 'advanced' : 'basic';
+
+      const generatedTrack = await professionalAudio.generateProfessionalBeat(
+        genre,
+        bpm,
+        duration,
+        complexity as 'basic' | 'advanced' | 'professional'
+      );
+
+      setGeneratedTracks(prev => [generatedTrack, ...prev]);
+      setGeneratedBeatId(parseInt(generatedTrack.id.split('_')[1]));
       setIsGenerating(false);
-      setGeneratedBeatId(Math.floor(Math.random() * generatedBeats.length) + 1);
+      
       toast({
-        title: "Beat Generated",
-        description: "Your custom beat is ready to play and download!",
+        title: "Professional Beat Generated",
+        description: `${generatedTrack.name} is ready with full-quality audio export.`,
       });
-    }, 3000);
+    } catch (error: any) {
+      setIsGenerating(false);
+      toast({
+        title: "Generation Failed",
+        description: "Unable to generate beat. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   const genres = [
@@ -381,7 +406,7 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
                                             variant="ghost" 
                                             size="sm"
                                             className="h-8 w-8 p-0 rounded-full hover:bg-[#8E24AA]/10 hover:text-[#8E24AA]"
-                                            onClick={() => handleDownloadBeat(beat.id)}
+                                            onClick={() => handleDownloadBeat(undefined, beat.id)}
                                           >
                                             <i className="fas fa-download"></i>
                                           </Button>
@@ -443,17 +468,36 @@ const BeatDropSection: React.FC<BeatDropSectionProps> = ({ onNavigate }) => {
                         )}
                       </div>
                       
-                      {!isGenerating && (
-                        <div className="flex justify-center mt-4 space-x-3">
-                          <Button size="sm" variant="outline" className="h-8 w-8 p-0 rounded-full">
-                            <i className="fas fa-step-backward text-xs"></i>
-                          </Button>
-                          <Button size="sm" className="h-8 w-8 p-0 rounded-full bg-[#8E24AA]">
-                            <i className="fas fa-play text-xs"></i>
-                          </Button>
-                          <Button size="sm" variant="outline" className="h-8 w-8 p-0 rounded-full">
-                            <i className="fas fa-step-forward text-xs"></i>
-                          </Button>
+                      {!isGenerating && generatedTracks.length > 0 && (
+                        <div className="mt-4">
+                          <h4 className="text-sm font-semibold text-white mb-2">Your Generated Beat</h4>
+                          <div className="bg-gradient-to-r from-[#8E24AA]/20 to-[#00BCD4]/20 p-3 rounded-lg border border-[#8E24AA]/30">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-white">{generatedTracks[0].name}</p>
+                                <p className="text-xs text-gray-400">{generatedTracks[0].genre} • {generatedTracks[0].bpm} BPM</p>
+                              </div>
+                              <div className="flex space-x-2">
+                                <Button 
+                                  size="sm" 
+                                  variant="outline" 
+                                  className="h-8 px-3 text-xs border-[#8E24AA]/50 text-[#8E24AA] hover:bg-[#8E24AA]/10"
+                                  onClick={() => handleDownloadBeat(generatedTracks[0])}
+                                >
+                                  <i className="fas fa-download mr-1"></i>
+                                  MP3
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className="h-8 px-3 text-xs bg-green-600 hover:bg-green-700"
+                                  onClick={() => handleShareBeat(generatedTracks[0])}
+                                >
+                                  <i className="fab fa-whatsapp mr-1"></i>
+                                  Share
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </div>
