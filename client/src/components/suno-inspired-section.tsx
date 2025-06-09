@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
 import { professionalAudio, MusicGenerationData } from "@/lib/professionalAudio";
+import AuthGateModal from "@/components/auth-gate-modal";
 
 interface SunoInspiredSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -26,7 +27,7 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
   const [duration, setDuration] = useState("120");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedTracks, setGeneratedTracks] = useState<MusicGenerationData[]>([]);
-  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [generationCount, setGenerationCount] = useState(0);
   
   const { toast } = useToast();
@@ -37,13 +38,13 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
 
   useEffect(() => {
     if (!user && generationCount >= FREE_GENERATION_LIMIT) {
-      setShowAuthPrompt(true);
+      setShowAuthModal(true);
     }
   }, [user, generationCount]);
 
   const handleGenerate = async () => {
     if (!user && generationCount >= FREE_GENERATION_LIMIT) {
-      setShowAuthPrompt(true);
+      setShowAuthModal(true);
       return;
     }
 
@@ -140,65 +141,7 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
     { id: "nostalgic", name: "Nostalgic" },
   ];
 
-  if (showAuthPrompt) {
-    return (
-      <section id="suno-ai" className="py-20 bg-gradient-to-b from-[#0E0E1A] to-[#121212] relative overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="max-w-2xl mx-auto text-center"
-          >
-            <Card className="bg-[#1A1A2E]/90 border-[#2979FF]/30 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl font-orbitron text-gradient-blue">
-                  Unlock Unlimited Music Creation
-                </CardTitle>
-                <CardDescription className="text-gray-300">
-                  You've used all {FREE_GENERATION_LIMIT} free generations. Join Patang Omniverse for unlimited access!
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-[#0A0A14]/50 rounded-lg border border-[#2979FF]/20">
-                    <h3 className="font-semibold text-white mb-2">Free Account</h3>
-                    <ul className="text-sm text-gray-400 space-y-1">
-                      <li>✓ 3 music generations</li>
-                      <li>✓ Basic quality exports</li>
-                      <li>✗ Limited features</li>
-                    </ul>
-                  </div>
-                  <div className="p-4 bg-gradient-to-br from-[#2979FF]/20 to-[#8E24AA]/20 rounded-lg border border-[#2979FF]/50">
-                    <h3 className="font-semibold text-white mb-2">Premium + PatSwap</h3>
-                    <ul className="text-sm text-gray-300 space-y-1">
-                      <li>✓ Unlimited generations</li>
-                      <li>✓ HD quality exports</li>
-                      <li>✓ Advanced AI features</li>
-                      <li>✓ 500 RIKO tokens bonus</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button 
-                    onClick={() => onNavigate("auth")}
-                    className="flex-1 bg-gradient-to-r from-[#2979FF] to-[#00BCD4] hover:opacity-90"
-                  >
-                    Login / Register
-                  </Button>
-                  <Button 
-                    onClick={() => onNavigate("patswap")}
-                    className="flex-1 bg-gradient-to-r from-[#8E24AA] to-[#FF1493] hover:opacity-90"
-                  >
-                    Get PatSwap Card
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-    );
-  }
+
 
   return (
     <section id="suno-ai" className="py-20 bg-gradient-to-b from-[#0E0E1A] to-[#121212] relative overflow-hidden">
@@ -458,6 +401,15 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
           </Tabs>
         </div>
       </div>
+
+      {/* Authentication Gate Modal */}
+      <AuthGateModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        featureName="AI Music Studio"
+        usedCount={generationCount}
+        maxCount={FREE_GENERATION_LIMIT}
+      />
     </section>
   );
 };
