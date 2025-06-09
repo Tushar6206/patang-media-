@@ -161,9 +161,10 @@ class ProfessionalAudioProcessor {
   }
 
   // Download audio with proper naming and format
-  async downloadAudio(audioData: AudioTrackData | VoiceCloneData, format: 'wav' | 'mp3' = 'wav'): Promise<void> {
+  async downloadAudio(audioData: AudioTrackData | VoiceCloneData | MusicGenerationData, format: 'wav' | 'mp3' = 'wav'): Promise<void> {
     try {
-      const sanitizedName = audioData.name.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase();
+      const name = 'title' in audioData ? audioData.title : audioData.name;
+      const sanitizedName = name.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase();
       const filename = `${sanitizedName}_${Date.now()}.${format}`;
       
       let finalBlob = audioData.audioBlob;
@@ -207,14 +208,15 @@ class ProfessionalAudioProcessor {
   }
 
   // Share via WhatsApp with proper audio file
-  async shareViaWhatsApp(audioData: AudioTrackData | VoiceCloneData): Promise<void> {
+  async shareViaWhatsApp(audioData: AudioTrackData | VoiceCloneData | MusicGenerationData): Promise<void> {
     try {
-      const sanitizedName = audioData.name.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase();
+      const name = 'title' in audioData ? audioData.title : audioData.name;
+      const sanitizedName = name.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase();
       
       // Prepare sharing content
       const shareText = `🎵 Check out this ${('genre' in audioData) ? audioData.genre + ' beat' : 'voice clone'} I created with Patang AI!
 
-"${audioData.name}"
+"${name}"
 
 Generated using cutting-edge AI technology at patang.ai
 

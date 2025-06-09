@@ -14,6 +14,7 @@ import RhythmRouletteSection from "@/components/rhythm-roulette-section";
 import FeaturedAnthemsSection from "@/components/featured-anthems-section";
 import GenreRecommenderSection from "@/components/genre-recommender-section";
 import MoodMixtapeSection from "@/components/mood-mixtape-section";
+import SunoInspiredSection from "@/components/suno-inspired-section";
 import CareersSection from "@/components/careers-section";
 import Footer from "@/components/footer";
 import { scrollToSection } from "@/lib/utils";
@@ -43,6 +44,7 @@ const Home: React.FC = () => {
       <main>
         <HeroSection onNavigate={handleNavigation} />
         <AIAgentsSection onNavigate={handleNavigation} />
+        <SunoInspiredSection onNavigate={handleNavigation} />
         <MoodMixtapeSection onNavigate={handleNavigation} />
         <VocalVerseSection onNavigate={handleNavigation} />
         <BeatDropSection onNavigate={handleNavigation} />
