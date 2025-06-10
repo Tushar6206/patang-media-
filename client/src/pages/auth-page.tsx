@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { PatSwapPreorderModal } from "@/components/patswap-preorder-modal";
 import { CreditCard } from "lucide-react";
+import TestUserSystem from "@/components/test-user-system";
 
 // Login form schema
 const loginSchema = z.object({

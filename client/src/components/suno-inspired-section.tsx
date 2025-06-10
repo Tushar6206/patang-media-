@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
-import { professionalAudio, MusicGenerationData } from "@/lib/professionalAudio";
+import { sunoAudioEngine, MusicGenerationData } from "@/lib/sunoAudioEngine";
 import AuthGateModal from "@/components/auth-gate-modal";
 
 interface SunoInspiredSectionProps {
@@ -60,7 +60,7 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
     setIsGenerating(true);
     
     try {
-      const musicData = await professionalAudio.generateAdvancedMusic({
+      const musicData = await sunoAudioEngine.generateAdvancedMusic({
         prompt,
         genre: selectedGenre,
         mood: selectedMood,
@@ -97,7 +97,7 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
 
   const handleDownloadTrack = async (track: MusicGenerationData) => {
     try {
-      await professionalAudio.downloadAudio(track, 'mp3');
+      await sunoAudioEngine.downloadAudio(track, 'mp3');
     } catch (error: any) {
       toast({
         title: "Download Failed",
@@ -109,7 +109,7 @@ const SunoInspiredSection: React.FC<SunoInspiredSectionProps> = ({ onNavigate })
 
   const handleShareTrack = async (track: MusicGenerationData) => {
     try {
-      await professionalAudio.shareViaWhatsApp(track);
+      await sunoAudioEngine.shareViaWhatsApp(track);
     } catch (error: any) {
       toast({
         title: "Share Failed",
