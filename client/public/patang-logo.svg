@@ -1,0 +1,60 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cosmicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8E24AA;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#2979FF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF1744;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8E24AA;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2979FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00BCD4;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Cosmic Background Circle -->
+  <circle cx="30" cy="30" r="25" fill="url(#cosmicGradient)" opacity="0.2"/>
+  
+  <!-- Central Orb/Planet -->
+  <circle cx="30" cy="30" r="18" fill="url(#cosmicGradient)" filter="url(#glow)"/>
+  
+  <!-- Orbital Rings -->
+  <circle cx="30" cy="30" r="22" fill="none" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.6"/>
+  <ellipse cx="30" cy="30" rx="26" ry="15" fill="none" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.4" transform="rotate(45 30 30)"/>
+  <ellipse cx="30" cy="30" rx="26" ry="15" fill="none" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.4" transform="rotate(-45 30 30)"/>
+  
+  <!-- AI Neural Network Nodes -->
+  <circle cx="45" cy="20" r="2" fill="#8E24AA" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="15" cy="40" r="2" fill="#2979FF" opacity="0.8">
+    <animate attributeName="opacity" values="1;0.8;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="45" cy="40" r="2" fill="#00BCD4" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Connection Lines -->
+  <line x1="30" y1="30" x2="45" y2="20" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.3"/>
+  <line x1="30" y1="30" x2="15" y2="40" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.3"/>
+  <line x1="30" y1="30" x2="45" y2="40" stroke="url(#cosmicGradient)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Central P Symbol -->
+  <text x="30" y="38" font-family="Orbitron, monospace" font-size="20" font-weight="bold" text-anchor="middle" fill="white" filter="url(#glow)">P</text>
+  
+  <!-- Company Text -->
+  <text x="70" y="25" font-family="Orbitron, monospace" font-size="18" font-weight="bold" fill="url(#textGradient)">PATANG</text>
+  <text x="70" y="42" font-family="Orbitron, monospace" font-size="12" font-weight="normal" fill="url(#textGradient)" opacity="0.8">OMNIVERSE</text>
+  
+  <!-- Tagline -->
+  <text x="70" y="52" font-family="Sora, sans-serif" font-size="8" font-weight="300" fill="#00BCD4" opacity="0.6">AI MEDIA PRODUCTION</text>
+</svg>

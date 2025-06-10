@@ -45,6 +45,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   ];
   
   const featureNavItems = [
+    { id: "suno-ai", label: "AI Music Studio" },
+    { id: "emotional-palette", label: "Emotional Palette" },
     { id: "mood-mixtape", label: "Mood Mixtape" },
     { id: "vocalverse", label: "VocalVerse™" },
     { id: "beatdrop", label: "BeatDrop™" },
@@ -84,15 +86,14 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div 
-            className="flex items-center space-x-2 cursor-pointer" 
+            className="flex items-center cursor-pointer" 
             onClick={() => handleNavClick("home")}
           >
-            <div className="h-10 w-10 rounded-full bg-gradient-custom flex items-center justify-center animate-pulse-slow">
-              <span className="font-orbitron font-bold text-white text-xl">P</span>
-            </div>
-            <span className="font-orbitron font-bold text-xl text-white">
-              PATANG <span className="text-[#2979FF]">OMNIVERSE</span>
-            </span>
+            <img 
+              src="/patang-logo.svg" 
+              alt="Patang Omniverse" 
+              className="h-12 w-auto"
+            />
           </div>
           
           {/* Desktop Navigation */}

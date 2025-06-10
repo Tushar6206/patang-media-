@@ -158,16 +158,11 @@ export default function AuthPage() {
         >
           {/* Small screen logo - shown only on very small devices */}
           <div className="flex justify-center mb-6 xs:hidden">
-            <div className="flex flex-col items-center">
-              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-[#8E24AA] to-[#00BCD4] flex items-center justify-center">
-                <span className="font-orbitron font-bold text-white text-2xl">P</span>
-              </div>
-              <h1 className="text-2xl font-orbitron font-bold mt-3 text-white">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8E24AA] to-[#00BCD4]">
-                  Patang
-                </span>
-              </h1>
-            </div>
+            <img 
+              src="/patang-logo.svg" 
+              alt="Patang Omniverse" 
+              className="h-16 w-auto"
+            />
           </div>
           
           <Tabs 
