@@ -146,6 +146,10 @@
     }
   }
 
+  .text-gradient-rainbow {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FF1744] via-[#FFD600] via-[#4CAF50] via-[#2196F3] via-[#9C27B0] to-[#E91E63];
+  }
+
   @keyframes wave {
     0% {
       mask-position: 0% 0;
