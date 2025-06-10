@@ -176,9 +176,10 @@ export default function AuthPage() {
             value={activeTab}
             className="w-full max-w-md mx-auto"
           >
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="login">Log In</TabsTrigger>
               <TabsTrigger value="register">Register</TabsTrigger>
+              <TabsTrigger value="demo">Test Demo</TabsTrigger>
             </TabsList>
             
             {/* Login Form */}
@@ -437,6 +438,21 @@ export default function AuthPage() {
                     </button>
                   </div>
                 </CardFooter>
+              </Card>
+            </TabsContent>
+
+            {/* Test Demo Tab */}
+            <TabsContent value="demo">
+              <Card className="border-[#2A2A4A] bg-[#121224]">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-sora text-white">Test Unlimited Features</CardTitle>
+                  <CardDescription>
+                    Try all features with pre-configured test accounts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <TestUserSystem />
+                </CardContent>
               </Card>
             </TabsContent>
           </Tabs>
