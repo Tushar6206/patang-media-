@@ -361,28 +361,7 @@ Generated using cutting-edge AI technology at patang.ai
     }
   }
 
-  private generateHarmony(
-    leftChannel: Float32Array,
-    rightChannel: Float32Array,
-    bpm: number,
-    sampleRate: number,
-    genre: string
-  ): void {
-    const chordFreqs = [[220, 277.18, 329.63], [246.94, 311.13, 369.99]]; // Am, Dm chords
-    
-    for (let i = 0; i < leftChannel.length; i++) {
-      const time = i / sampleRate;
-      const chordIndex = Math.floor(time / 2) % 2;
-      
-      let harmonySample = 0;
-      for (const freq of chordFreqs[chordIndex]) {
-        harmonySample += Math.sin(2 * Math.PI * freq * time) * 0.1;
-      }
-      
-      leftChannel[i] += harmonySample;
-      rightChannel[i] += harmonySample;
-    }
-  }
+
 
   private generateEffects(leftChannel: Float32Array, rightChannel: Float32Array, sampleRate: number): void {
     // Apply reverb
