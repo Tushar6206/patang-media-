@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0B4F6C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B7EA6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGradient)" />
+  
+  <!-- Yoga mat -->
+  <rect x="50" y="250" width="300" height="120" rx="5" ry="5" fill="#CBF3F0" opacity="0.7" />
+  
+  <!-- Stylized human figure in yoga pose -->
+  <g transform="translate(200, 250) scale(1, -1)">
+    <!-- Legs in warrior pose -->
+    <path d="M-80,-50 L0,0 L80,-40" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Torso -->
+    <path d="M0,0 L0,90" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Arms in T-pose -->
+    <path d="M0,70 L-70,50" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    <path d="M0,70 L70,90" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Head -->
+    <circle cx="0" cy="110" r="20" fill="#FFFFFF" />
+  </g>
+  
+  <!-- WellOh product placement -->
+  <g transform="translate(60, 60)">
+    <rect x="0" y="0" width="80" height="120" rx="10" ry="10" fill="#2979FF" opacity="0.2" />
+    <rect x="10" y="10" width="60" height="100" rx="5" ry="5" fill="#FFFFFF" opacity="0.9" />
+    <text x="40" y="70" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#2979FF">WellOh</text>
+    <text x="40" y="90" font-family="Arial" font-size="8" text-anchor="middle" fill="#2979FF">Wellness+</text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="310" cy="80" r="40" fill="#CBEEF3" opacity="0.4" />
+  <circle cx="330" cy="60" r="20" fill="#97DFFC" opacity="0.6" />
+  
+  <!-- Plants in background -->
+  <g transform="translate(280, 300)">
+    <path d="M0,0 C10,-20 15,-40 5,-60 M0,0 C-5,-30 0,-50 10,-70 M0,0 C-10,-25 -15,-45 -5,-65" fill="none" stroke="#A7E8BD" stroke-width="3" />
+  </g>
+  
+  <!-- Light beams -->
+  <g opacity="0.1">
+    <path d="M200,0 L100,400" stroke="#FFFFFF" stroke-width="20" />
+    <path d="M200,0 L300,400" stroke="#FFFFFF" stroke-width="20" />
+    <path d="M100,0 L200,400" stroke="#FFFFFF" stroke-width="15" />
+    <path d="M300,0 L200,400" stroke="#FFFFFF" stroke-width="15" />
+  </g>
+  
+  <!-- Glowing orb - represents energy -->
+  <circle cx="200" cy="170" r="25" fill="#FFFFFF" opacity="0.2" filter="url(#shadow)" />
+  
+  <!-- Stacy branding -->
+  <g transform="translate(50, 350)">
+    <text x="0" y="0" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Stacy™ x WellOh</text>
+    <text x="0" y="20" font-family="Arial" font-size="10" fill="#FFFFFF" opacity="0.7">Wellness Ambassador</text>
+  </g>
+</svg>

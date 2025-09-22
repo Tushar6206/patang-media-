@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#121232;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E1E48;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#2979FF;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#2979FF;stop-opacity:0" />
+    </radialGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2979FF;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#08FDD8;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGradient)" />
+  
+  <!-- Grid pattern -->
+  <g stroke="#FFFFFF" stroke-opacity="0.05">
+    <!-- Horizontal lines -->
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+    <line x1="0" y1="600" x2="1200" y2="600" />
+    <line x1="0" y1="700" x2="1200" y2="700" />
+    
+    <!-- Vertical lines -->
+    <line x1="100" y1="0" x2="100" y2="800" />
+    <line x1="200" y1="0" x2="200" y2="800" />
+    <line x1="300" y1="0" x2="300" y2="800" />
+    <line x1="400" y1="0" x2="400" y2="800" />
+    <line x1="500" y1="0" x2="500" y2="800" />
+    <line x1="600" y1="0" x2="600" y2="800" />
+    <line x1="700" y1="0" x2="700" y2="800" />
+    <line x1="800" y1="0" x2="800" y2="800" />
+    <line x1="900" y1="0" x2="900" y2="800" />
+    <line x1="1000" y1="0" x2="1000" y2="800" />
+    <line x1="1100" y1="0" x2="1100" y2="800" />
+  </g>
+  
+  <!-- Holographic earth -->
+  <g filter="url(#glow)" transform="translate(600, 400)">
+    <circle cx="0" cy="0" r="200" fill="url(#techGradient)" opacity="0.6" />
+    
+    <!-- Latitude lines -->
+    <ellipse cx="0" cy="0" rx="200" ry="30" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" />
+    <ellipse cx="0" cy="0" rx="150" ry="22" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" />
+    <ellipse cx="0" cy="0" rx="100" ry="15" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" />
+    <ellipse cx="0" cy="0" rx="50" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" />
+    
+    <!-- Longitude lines -->
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(0)" />
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(30)" />
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(60)" />
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(90)" />
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(120)" />
+    <ellipse cx="0" cy="0" rx="30" ry="200" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.5" transform="rotate(150)" />
+  </g>
+  
+  <!-- Connection points around the globe -->
+  <g filter="url(#glow)">
+    <circle cx="500" cy="250" r="5" fill="#2979FF" />
+    <circle cx="450" cy="350" r="4" fill="#2979FF" />
+    <circle cx="550" cy="500" r="6" fill="#2979FF" />
+    <circle cx="650" cy="200" r="5" fill="#2979FF" />
+    <circle cx="750" cy="280" r="4" fill="#2979FF" />
+    <circle cx="700" cy="550" r="5" fill="#2979FF" />
+    <circle cx="800" cy="450" r="6" fill="#2979FF" />
+    <circle cx="850" cy="350" r="4" fill="#2979FF" />
+    
+    <!-- Connection lines -->
+    <line x1="500" y1="250" x2="650" y2="200" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="500" y1="250" x2="450" y2="350" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="650" y1="200" x2="750" y2="280" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="750" y1="280" x2="850" y2="350" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="850" y1="350" x2="800" y2="450" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="800" y1="450" x2="700" y2="550" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="700" y1="550" x2="550" y2="500" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+    <line x1="550" y1="500" x2="450" y2="350" stroke="#2979FF" stroke-width="1" opacity="0.6" />
+  </g>
+  
+  <!-- Digital abstract particles -->
+  <g>
+    <circle cx="200" cy="200" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="250" cy="150" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="150" cy="250" r="4" fill="#08FDD8" opacity="0.7" />
+    <circle cx="100" cy="300" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="300" cy="100" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="350" cy="350" r="5" fill="#08FDD8" opacity="0.7" />
+    <circle cx="950" cy="200" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="1000" cy="250" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="1050" cy="300" r="4" fill="#08FDD8" opacity="0.7" />
+    <circle cx="900" cy="350" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="850" cy="150" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="800" cy="100" r="5" fill="#08FDD8" opacity="0.7" />
+    <circle cx="250" cy="600" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="200" cy="650" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="300" cy="700" r="4" fill="#08FDD8" opacity="0.7" />
+    <circle cx="350" cy="550" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="150" cy="500" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="100" cy="450" r="5" fill="#08FDD8" opacity="0.7" />
+    <circle cx="900" cy="600" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="950" cy="650" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="1000" cy="700" r="4" fill="#08FDD8" opacity="0.7" />
+    <circle cx="850" cy="550" r="3" fill="#08FDD8" opacity="0.7" />
+    <circle cx="800" cy="500" r="2" fill="#08FDD8" opacity="0.7" />
+    <circle cx="1050" cy="450" r="5" fill="#08FDD8" opacity="0.7" />
+  </g>
+  
+  <!-- Abstract data visualization elements -->
+  <g opacity="0.6">
+    <!-- Bar charts -->
+    <rect x="150" y="620" width="20" height="40" fill="#2979FF" />
+    <rect x="180" y="600" width="20" height="60" fill="#2979FF" />
+    <rect x="210" y="580" width="20" height="80" fill="#2979FF" />
+    <rect x="240" y="620" width="20" height="40" fill="#2979FF" />
+    <rect x="270" y="600" width="20" height="60" fill="#2979FF" />
+    
+    <!-- Pie chart -->
+    <path d="M150,150 L200,150 A50,50 0 0,1 175,193 Z" fill="#2979FF" />
+    <path d="M150,150 L175,193 A50,50 0 0,1 127,182 Z" fill="#08FDD8" />
+    <path d="M150,150 L127,182 A50,50 0 0,1 150,100 Z" fill="#4A148C" />
+    <path d="M150,150 L150,100 A50,50 0 0,1 200,150 Z" fill="#00BCD4" />
+    
+    <!-- Line graph -->
+    <polyline points="950,650 980,620 1010,630 1040,600 1070,610 1100,580" fill="none" stroke="#08FDD8" stroke-width="3" />
+    
+    <!-- Scatter plot -->
+    <circle cx="950" cy="150" r="5" fill="#2979FF" />
+    <circle cx="980" cy="180" r="5" fill="#2979FF" />
+    <circle cx="1010" cy="130" r="5" fill="#2979FF" />
+    <circle cx="1040" cy="160" r="5" fill="#2979FF" />
+    <circle cx="1070" cy="120" r="5" fill="#2979FF" />
+    <circle cx="1100" cy="170" r="5" fill="#2979FF" />
+  </g>
+  
+  <!-- Hexagonal network pattern -->
+  <g opacity="0.2" stroke="#FFFFFF" stroke-width="1" fill="none">
+    <path d="M300,200 L350,230 L350,290 L300,320 L250,290 L250,230 Z" />
+    <path d="M350,290 L400,320 L400,380 L350,410 L300,380 L300,320 Z" />
+    <path d="M300,380 L350,410 L350,470 L300,500 L250,470 L250,410 Z" />
+    <path d="M250,290 L300,320 L300,380 L250,410 L200,380 L200,320 Z" />
+    
+    <path d="M900,200 L950,230 L950,290 L900,320 L850,290 L850,230 Z" />
+    <path d="M950,290 L1000,320 L1000,380 L950,410 L900,380 L900,320 Z" />
+    <path d="M900,380 L950,410 L950,470 L900,500 L850,470 L850,410 Z" />
+    <path d="M850,290 L900,320 L900,380 L850,410 L800,380 L800,320 Z" />
+  </g>
+  
+  <!-- Abstract circuit paths -->
+  <g stroke="#08FDD8" stroke-width="1" fill="none" opacity="0.4">
+    <path d="M100,100 L150,100 L150,150 L200,150 L200,100 L250,100 L250,200 L300,200" />
+    <path d="M900,700 L950,700 L950,650 L1000,650 L1000,700 L1050,700 L1050,600 L1100,600" />
+    <circle cx="300" cy="200" r="5" fill="#08FDD8" />
+    <circle cx="1100" cy="600" r="5" fill="#08FDD8" />
+  </g>
+  
+  <!-- Binary data stream -->
+  <g opacity="0.5" fill="#FFFFFF" font-family="Courier New" font-size="10">
+    <text x="100" y="530">10110101</text>
+    <text x="100" y="550">01001010</text>
+    <text x="100" y="570">11010010</text>
+    <text x="100" y="590">00101101</text>
+    
+    <text x="1050" y="230">10110101</text>
+    <text x="1050" y="250">01001010</text>
+    <text x="1050" y="270">11010010</text>
+    <text x="1050" y="290">00101101</text>
+  </g>
+</svg>

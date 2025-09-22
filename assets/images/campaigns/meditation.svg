@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7B1FA2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9C27B0;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="auraGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#E1BEE7;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#E1BEE7;stop-opacity:0" />
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGradient)" />
+  
+  <!-- Background patterns - chakra symbols (simplified) -->
+  <g opacity="0.1" fill="#FFFFFF">
+    <circle cx="200" cy="50" r="15" />
+    <circle cx="200" cy="90" r="15" />
+    <circle cx="200" cy="130" r="15" />
+    <circle cx="200" cy="170" r="15" />
+    <circle cx="200" cy="210" r="15" />
+    <circle cx="200" cy="250" r="15" />
+    <circle cx="200" cy="290" r="15" />
+  </g>
+  
+  <!-- Meditation floor/mat -->
+  <ellipse cx="200" cy="340" rx="120" ry="30" fill="#FFFFFF" opacity="0.1" />
+  
+  <!-- Figure in meditation pose (simple silhouette) -->
+  <g transform="translate(200, 240)">
+    <!-- Lotus position legs -->
+    <path d="M0,20 C-30,0 -60,30 -40,50 C-60,40 -80,50 -60,70 C-30,50 0,60 0,20 Z" fill="#FFFFFF" opacity="0.9" />
+    <path d="M0,20 C30,0 60,30 40,50 C60,40 80,50 60,70 C30,50 0,60 0,20 Z" fill="#FFFFFF" opacity="0.9" />
+    
+    <!-- Torso -->
+    <rect x="-15" y="-40" width="30" height="60" rx="15" ry="15" fill="#FFFFFF" />
+    
+    <!-- Arms -->
+    <path d="M-15,-20 C-30,-10 -40,0 -30,20" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    <path d="M15,-20 C30,-10 40,0 30,20" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Hands in meditation pose -->
+    <circle cx="-30" cy="20" r="6" fill="#FFFFFF" />
+    <circle cx="30" cy="20" r="6" fill="#FFFFFF" />
+    
+    <!-- Head -->
+    <circle cx="0" cy="-60" r="20" fill="#FFFFFF" />
+  </g>
+  
+  <!-- Meditation energy/aura -->
+  <circle cx="200" cy="200" r="150" fill="url(#auraGradient)" opacity="0.3" />
+  <circle cx="200" cy="200" r="100" fill="url(#auraGradient)" opacity="0.3" />
+  <circle cx="200" cy="200" r="50" fill="url(#auraGradient)" opacity="0.3" />
+  
+  <!-- Energy particles -->
+  <g filter="url(#glow)" opacity="0.7">
+    <circle cx="160" cy="100" r="2" fill="#FFFFFF" />
+    <circle cx="240" cy="100" r="2" fill="#FFFFFF" />
+    <circle cx="130" cy="150" r="2" fill="#FFFFFF" />
+    <circle cx="270" cy="150" r="2" fill="#FFFFFF" />
+    <circle cx="120" cy="200" r="2" fill="#FFFFFF" />
+    <circle cx="280" cy="200" r="2" fill="#FFFFFF" />
+    <circle cx="130" cy="250" r="2" fill="#FFFFFF" />
+    <circle cx="270" cy="250" r="2" fill="#FFFFFF" />
+    <circle cx="160" cy="300" r="2" fill="#FFFFFF" />
+    <circle cx="240" cy="300" r="2" fill="#FFFFFF" />
+  </g>
+  
+  <!-- WellOh product placement -->
+  <g transform="translate(50, 80)">
+    <rect x="0" y="0" width="70" height="100" rx="8" ry="8" fill="#9C27B0" opacity="0.2" />
+    <rect x="5" y="5" width="60" height="90" rx="5" ry="5" fill="#FFFFFF" opacity="0.9" />
+    <text x="35" y="50" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#9C27B0">WellOh</text>
+    <text x="35" y="70" font-family="Arial" font-size="10" text-anchor="middle" fill="#9C27B0">Mindful+</text>
+  </g>
+  
+  <!-- Decorative zen stones -->
+  <g transform="translate(300, 270)">
+    <ellipse cx="0" cy="0" rx="25" ry="15" fill="#FFFFFF" opacity="0.5" />
+    <ellipse cx="15" cy="-20" rx="20" ry="12" fill="#FFFFFF" opacity="0.4" />
+    <ellipse cx="25" cy="-40" rx="15" ry="10" fill="#FFFFFF" opacity="0.3" />
+  </g>
+  
+  <!-- Sound waves representing meditation music -->
+  <g opacity="0.3" stroke="#FFFFFF" stroke-width="1" fill="none">
+    <path d="M300,100 Q320,90 340,100 Q360,110 380,100" />
+    <path d="M300,120 Q325,105 350,120 Q375,135 400,120" />
+    <path d="M300,140 Q315,135 330,140 Q345,145 360,140" />
+  </g>
+  
+  <!-- Stacy branding -->
+  <g transform="translate(50, 350)">
+    <text x="0" y="0" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Stacy™ x WellOh</text>
+    <text x="0" y="20" font-family="Arial" font-size="10" fill="#FFFFFF" opacity="0.7">Mindfulness Guide</text>
+  </g>
+</svg>
